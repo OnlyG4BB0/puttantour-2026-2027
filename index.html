@@ -35,6 +35,8 @@
     <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[90vw] max-w-[920px] h-[520px] rounded-full bg-crimson-800/20 blur-[130px]"></div>
     <div class="absolute bottom-0 right-0 w-[65vw] max-w-[620px] h-[420px] rounded-full bg-gold-500/10 blur-[140px]"></div>
     <div class="absolute inset-0 bg-[radial-gradient(rgba(212,175,55,0.06)_1px,transparent_1px)] [background-size:28px_28px] opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"></div>
+    <div class="spotlight absolute inset-0"></div>
+    <canvas id="gold-dust" class="absolute inset-0 w-full h-full"></canvas>
     <div class="grain absolute inset-0 opacity-[0.05] mix-blend-overlay"></div>
   </div>
 
@@ -100,7 +102,7 @@
 
       <!-- Sigillo Diplomatico Centrale -->
       <div class="relative flex w-fit mx-auto items-center justify-center mb-7 sm:mb-9">
-        <div class="absolute inset-0 rounded-full bg-gold-400/15 blur-2xl scale-125"></div>
+        <div class="seal-breathe absolute inset-0 rounded-full bg-gold-400/15 blur-2xl"></div>
         <div aria-hidden="true" class="absolute -inset-3 rounded-full border border-dashed border-gold-400/25 animate-spinSlow"></div>
         <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-obsidian-800 to-obsidian-950 border border-gold-400/50 p-2 shadow-2xl shadow-black/80 flex items-center justify-center">
           <div class="w-full h-full rounded-full border border-dashed border-gold-400/40 flex items-center justify-center bg-gradient-to-br from-crimson-900/60 via-obsidian-900 to-obsidian-950">
@@ -158,7 +160,7 @@
         <button
           id="cta-start-registration"
           type="button"
-          class="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.16em] uppercase shadow-[0_12px_36px_-8px_rgba(212,175,55,0.45)] hover:shadow-[0_16px_42px_-6px_rgba(212,175,55,0.65)] active:scale-[0.99] transition-all cursor-pointer"
+          class="sheen group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.16em] uppercase shadow-[0_12px_36px_-8px_rgba(212,175,55,0.45)] hover:shadow-[0_16px_42px_-6px_rgba(212,175,55,0.65)] active:scale-[0.99] transition-all cursor-pointer"
         >
           <span>RICHIEDI LA TUA MEMBERSHIP</span>
           <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -196,8 +198,8 @@
 
       <!-- Pilastri del Club / Dettagli Diplomatici -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-12 text-left">
-        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
-          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+        <article class="pillar p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="pillar-icon w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
@@ -208,8 +210,8 @@
           </p>
         </article>
 
-        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
-          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+        <article class="pillar p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="pillar-icon w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
             </svg>
@@ -220,8 +222,8 @@
           </p>
         </article>
 
-        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
-          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+        <article class="pillar p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="pillar-icon w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
             </svg>
@@ -505,7 +507,7 @@
           <!-- Submit -->
           <button
             type="submit"
-            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.18em] uppercase shadow-[0_12px_32px_-8px_rgba(212,175,55,0.45)] active:scale-[0.99] transition-all cursor-pointer"
+            class="sheen w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.18em] uppercase shadow-[0_12px_32px_-8px_rgba(212,175,55,0.45)] active:scale-[0.99] transition-all cursor-pointer"
           >
             EMETTI LA TUA TESSERA UFFICIALE
           </button>
@@ -594,7 +596,7 @@
             href="https://chat.whatsapp.com/KDhIkQNpuJ49xUUAEasIvQ?s=cl&p=i&iam=2"
             target="_blank"
             rel="noopener noreferrer"
-            class="group w-full sm:w-auto inline-flex items-center justify-center gap-3.5 px-7 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[#128C7E] via-[#1FA855] to-[#128C7E] bg-[length:200%_100%] hover:animate-shimmer text-white font-diplomatic font-bold text-sm sm:text-base tracking-[0.14em] uppercase border border-emerald-300/40 shadow-[0_14px_38px_-8px_rgba(31,168,85,0.5)] hover:shadow-[0_18px_44px_-6px_rgba(31,168,85,0.7)] active:scale-[0.99] transition-all"
+            class="sheen group w-full sm:w-auto inline-flex items-center justify-center gap-3.5 px-7 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[#128C7E] via-[#1FA855] to-[#128C7E] bg-[length:200%_100%] hover:animate-shimmer text-white font-diplomatic font-bold text-sm sm:text-base tracking-[0.14em] uppercase border border-emerald-300/40 shadow-[0_14px_38px_-8px_rgba(31,168,85,0.5)] hover:shadow-[0_18px_44px_-6px_rgba(31,168,85,0.7)] active:scale-[0.99] transition-all"
           >
             <!-- Icona WhatsApp SVG -->
             <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -621,6 +623,8 @@
           >
             <!-- Corpo Interno Card -->
             <div class="relative w-full rounded-[21px] sm:rounded-[25px] bg-gradient-to-br from-[#14141A] via-[#0B0B0F] to-[#1A080C] overflow-hidden p-4 sm:p-7 min-h-[245px] sm:min-h-[345px] flex flex-col justify-between gap-4">
+
+              <div class="card-sweep" aria-hidden="true"></div>
 
               <!-- Effetto riflesso metallico dinamico -->
               <div id="card-sheen" aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-35 transition-opacity duration-300 bg-[radial-gradient(circle_at_30%_20%,rgba(243,225,164,0.24),transparent_55%)]"></div>
@@ -1063,5 +1067,6 @@
   <!-- ===================================================================== -->
   <script src="assets/js/qrcode.js" defer></script>
   <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
 </body>
 </html>
