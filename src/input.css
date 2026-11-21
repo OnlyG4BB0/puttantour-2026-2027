@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; }
+  body { touch-action: manipulation; padding-bottom: env(safe-area-inset-bottom); }
+  :focus-visible { outline: 2px solid #D4AF37; outline-offset: 2px; }
+  input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(78%) sepia(40%) saturate(500%) hue-rotate(5deg); cursor: pointer; opacity: .85; }
+  input, select { font-size: 16px; }
+  @media (min-width: 640px) { input, select { font-size: .875rem; } }
+}
+
+@layer components {
+  .select-lux {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23D4AF37' stroke-width='1.8'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right .85rem center;
+    background-size: 1.1rem;
+  }
+  .select-lux:invalid, .select-lux option[value=""] { color: rgba(207, 194, 165, .45); }
+  .select-lux option { background: #0B0B0E; color: #F5F0E6; }
+  .title-gold {
+    background-image: linear-gradient(100deg, #E5C66B 0%, #FBF3D5 22%, #D4AF37 45%, #B89122 60%, #F3E1A4 80%, #D4AF37 100%);
+    background-size: 220% 100%;
+    animation: titleSheen 9s ease-in-out infinite;
+  }
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes titleSheen { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
