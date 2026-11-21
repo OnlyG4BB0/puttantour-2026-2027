@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="it" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PUTTANTOUR 2026/2027 — Official Membership Portal</title>
+
+  <!-- Google Fonts: Tipografia diplomatica, editoriale e tecnica -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configurazione Design System Tailwind (Palette Club Privato & Passaporto Diplomatico) -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              950: '#060608',
+              900: '#0B0B0E',
+              800: '#131318',
+              700: '#1C1C24',
+            },
+            gold: {
+              100: '#FBF3D5',
+              200: '#F3E1A4',
+              300: '#E5C66B',
+              400: '#D4AF37',
+              500: '#B89122',
+              600: '#8F6D13',
+            },
+            crimson: {
+              950: '#2A050A',
+              900: '#450A12',
+              800: '#6B0F1A',
+              700: '#8C1524',
+              600: '#A81D2E',
+            },
+            ivory: {
+              50: '#FAF7F0',
+              100: '#F5F0E6',
+              200: '#E7DEC9',
+              300: '#CFC2A5',
+            }
+          },
+          fontFamily: {
+            diplomatic: ['Cinzel', 'Georgia', 'serif'],
+            editorial: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(18px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            sealStamp: {
+              '0%': { opacity: '0', transform: 'scale(1.65) rotate(-14deg)' },
+              '65%': { opacity: '1', transform: 'scale(0.95) rotate(2deg)' },
+              '100%': { opacity: '1', transform: 'scale(1) rotate(0deg)' },
+            },
+            pulseGold: {
+              '0%, 100%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.35)' },
+              '50%': { boxShadow: '0 0 28px 4px rgba(212, 175, 55, 0.2)' },
+            },
+            spinSlow: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            }
+          },
+          animation: {
+            shimmer: 'shimmer 3.8s linear infinite',
+            fadeUp: 'fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            sealStamp: 'sealStamp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+            pulseGold: 'pulseGold 3s ease-in-out infinite',
+            spinSlow: 'spinSlow 18s linear infinite',
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-obsidian-950 text-ivory-100 font-sans antialiased selection:bg-gold-400/30 selection:text-gold-200 overflow-x-hidden min-h-screen flex flex-col relative">
+
+  <!-- Sfondo ambientale diplomatico (Bagliori cremisi e filigrana aurea) -->
+  <div aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[90vw] max-w-[920px] h-[520px] rounded-full bg-crimson-800/20 blur-[130px]"></div>
+    <div class="absolute bottom-0 right-0 w-[65vw] max-w-[620px] h-[420px] rounded-full bg-gold-500/10 blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(rgba(212,175,55,0.06)_1px,transparent_1px)] [background-size:28px_28px] opacity-40"></div>
+  </div>
+
+  <!-- Barra di Navigazione Diplomatica -->
+  <header class="sticky top-0 z-40 w-full bg-obsidian-950/85 backdrop-blur-xl border-b border-gold-400/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <!-- Brand / Ritorno alla Home -->
+      <button
+        id="nav-brand-btn"
+        type="button"
+        class="flex items-center gap-3 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 rounded-lg p-1 -ml-1"
+        aria-label="Torna alla pagina principale"
+      >
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-crimson-800 via-obsidian-800 to-obsidian-900 border border-gold-400/50 flex items-center justify-center shadow-lg shadow-black/50 group-hover:border-gold-300 transition-colors">
+          <!-- Stemma minimalista -->
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gold-300" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4L24.2 12.2L33.2 13.5L26.6 19.8L28.2 28.8L20 24.5L11.8 28.8L13.4 19.8L6.8 13.5L15.8 12.2L20 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 2.5" opacity="0.6"/>
+            <circle cx="20" cy="18.5" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="leading-tight">
+          <div class="font-diplomatic text-xs sm:text-sm tracking-[0.22em] font-bold text-gold-200 group-hover:text-gold-100 transition-colors">
+            PUTTANTOUR
+          </div>
+          <div class="text-[10px] sm:text-[11px] tracking-[0.24em] text-ivory-300/70 uppercase font-medium">
+            Stagione 2026/2027
+          </div>
+        </div>
+      </button>
+
+      <!-- Azioni Header -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Pulsante rapido se esiste una tessera salvata -->
+        <button
+          id="nav-saved-card-btn"
+          type="button"
+          class="hidden items-center gap-2 px-3 py-2 sm:px-4 rounded-xl bg-gold-400/10 hover:bg-gold-400/20 border border-gold-400/40 text-gold-200 text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer"
+        >
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="hidden sm:inline">La mia Tessera</span>
+          <span class="sm:hidden">Tessera</span>
+        </button>
+
+        <button
+          id="nav-privacy-btn"
+          type="button"
+          class="px-3 py-2 rounded-xl text-xs font-medium tracking-wider uppercase text-ivory-200/80 hover:text-gold-200 hover:bg-obsidian-800/80 border border-transparent hover:border-gold-400/25 transition-all cursor-pointer"
+        >
+          Privacy &amp; Statuto
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENITORE PRINCIPALE -->
+  <main class="relative z-10 flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16 flex flex-col justify-center">
+
+    <!-- =================================================================== -->
+    <!-- VISTA 1: HOMEPAGE                                                   -->
+    <!-- =================================================================== -->
+    <section id="view-home" class="w-full max-w-4xl mx-auto text-center animate-fadeUp">
+
+      <!-- Sigillo Diplomatico Centrale -->
+      <div class="relative inline-flex items-center justify-center mb-6 sm:mb-8">
+        <div class="absolute inset-0 rounded-full bg-gold-400/15 blur-2xl scale-125"></div>
+        <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-obsidian-800 to-obsidian-950 border border-gold-400/50 p-2 shadow-2xl shadow-black/80 flex items-center justify-center">
+          <div class="w-full h-full rounded-full border border-dashed border-gold-400/40 flex items-center justify-center bg-gradient-to-br from-crimson-900/60 via-obsidian-900 to-obsidian-950">
+            <!-- Stemma Ufficiale SVG -->
+            <svg class="w-14 h-14 sm:w-16 sm:h-16 text-gold-300" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- Corona d'alloro stilizzata -->
+              <path d="M22 58C13 50 11 35 17 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+              <path d="M58 58C67 50 69 35 63 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+              <path d="M16 44L11 41M15 34L10 32M18 25L14 22M20 53L15 53" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
+              <path d="M64 44L69 41M65 34L70 32M62 25L66 22M60 53L65 53" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
+              <!-- Scudo centrale -->
+              <path d="M40 16L54 22V39C54 49.5 47.8 57.5 40 62C32.2 57.5 26 49.5 26 39V22L40 16Z" fill="rgba(107,15,26,0.55)" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <!-- Corona superiore -->
+              <path d="M32 14L35 9L40 12.5L45 9L48 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Monogramma PT -->
+              <text x="40" y="43" text-anchor="middle" fill="#F3E1A4" font-family="Cinzel, Georgia, serif" font-size="14" font-weight="700" letter-spacing="1.5">PT</text>
+              <line x1="33" y1="48" x2="47" y2="48" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+              <text x="40" y="55" text-anchor="middle" fill="#E5C66B" font-family="Inter, sans-serif" font-size="5.5" font-weight="600" letter-spacing="1.2">26·27</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eyebrow Badge -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-crimson-950/90 border border-gold-400/35 text-gold-300 text-[11px] sm:text-xs font-semibold tracking-[0.26em] uppercase mb-5 shadow-lg">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+        Official Membership Portal
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+      </div>
+
+      <!-- Titolo Centrale -->
+      <h1 class="font-diplomatic text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.08em] leading-[1.08] bg-gradient-to-b from-gold-100 via-gold-300 to-gold-500 bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(212,175,55,0.22)] mb-4 sm:mb-6">
+        PUTTANTOUR<br class="sm:hidden" /> 2026/2027
+      </h1>
+
+      <!-- Slogan -->
+      <p class="font-editorial italic text-2xl sm:text-3xl md:text-4xl text-ivory-100 font-medium tracking-wide mb-4">
+        “Non è un viaggio. È una tradizione.”
+      </p>
+
+      <!-- Linea divisoria ornamentale -->
+      <div class="flex items-center justify-center gap-3 my-5 sm:my-6">
+        <span class="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-gold-400/60"></span>
+        <span class="w-2 h-2 rotate-45 border border-gold-400 bg-crimson-800"></span>
+        <span class="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-gold-400/60"></span>
+      </div>
+
+      <!-- Descrizione -->
+      <p class="text-ivory-200/80 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-8 sm:mb-10">
+        Il portale ufficiale per l’adesione alla stagione 2026/2027.
+      </p>
+
+      <!-- Call To Action Principale -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+        <button
+          id="cta-start-registration"
+          type="button"
+          class="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-4.5 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.16em] uppercase shadow-[0_12px_36px_-8px_rgba(212,175,55,0.45)] hover:shadow-[0_16px_42px_-6px_rgba(212,175,55,0.65)] active:scale-[0.99] transition-all cursor-pointer"
+        >
+          <span>RICHIEDI LA TUA MEMBERSHIP</span>
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Banner di Recupero Tessera (visibile solo se già presente in localStorage) -->
+      <div id="home-saved-banner" class="hidden max-w-xl mx-auto mb-10 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-obsidian-800/95 via-crimson-950/60 to-obsidian-800/95 border border-gold-400/40 shadow-xl text-left">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-gold-400/15 border border-gold-400/40 flex items-center justify-center shrink-0 text-gold-300">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-[11px] uppercase tracking-[0.2em] text-gold-300 font-semibold">Credenziali rilevate localmente</p>
+              <p class="text-sm text-ivory-100 font-medium mt-0.5">
+                Bentornato, <span id="home-saved-name" class="text-gold-200 font-semibold"></span>
+              </p>
+              <p class="text-xs text-ivory-300/70 font-mono mt-0.5">ID: <span id="home-saved-id"></span></p>
+            </div>
+          </div>
+          <button
+            id="home-recover-btn"
+            type="button"
+            class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gold-400/15 hover:bg-gold-400/25 border border-gold-400/50 text-gold-200 text-xs font-bold tracking-[0.14em] uppercase transition-all shrink-0 cursor-pointer"
+          >
+            Apri la tua Tessera
+          </button>
+        </div>
+      </div>
+
+      <!-- Pilastri del Club / Dettagli Diplomatici -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-12 text-left">
+        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <h2 class="font-diplomatic text-sm tracking-[0.14em] text-gold-200 font-semibold uppercase mb-2">Protocollo 18+</h2>
+          <p class="text-xs sm:text-sm text-ivory-300/75 leading-relaxed">
+            L’emissione della tessera ufficiale è consentita esclusivamente ai candidati maggiorenni previa verifica anagrafica locale.
+          </p>
+        </article>
+
+        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+            </svg>
+          </div>
+          <h2 class="font-diplomatic text-sm tracking-[0.14em] text-gold-200 font-semibold uppercase mb-2">Pass Diplomatico</h2>
+          <p class="text-xs sm:text-sm text-ivory-300/75 leading-relaxed">
+            Tessera digitale nominativa con finiture dorate, codice seriale univoco, QR identificativo ed esportazione PNG ad alta definizione.
+          </p>
+        </article>
+
+        <article class="p-5 sm:p-6 rounded-2xl bg-obsidian-900/80 border border-gold-400/15 hover:border-gold-400/35 transition-colors backdrop-blur-sm">
+          <div class="w-10 h-10 rounded-xl bg-crimson-900/60 border border-gold-400/30 flex items-center justify-center text-gold-300 mb-4">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </div>
+          <h2 class="font-diplomatic text-sm tracking-[0.14em] text-gold-200 font-semibold uppercase mb-2">Discrezione Assoluta</h2>
+          <p class="text-xs sm:text-sm text-ivory-300/75 leading-relaxed">
+            Nessun server esterno, nessun database. I dati restano custoditi esclusivamente sul tuo dispositivo tramite archivio locale.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 2: MODULO DI REGISTRAZIONE                                    -->
+    <!-- =================================================================== -->
+    <section id="view-register" class="hidden w-full max-w-xl mx-auto animate-fadeUp">
+      <div class="mb-5 flex items-center justify-between">
+        <button
+          id="btn-back-home"
+          type="button"
+          class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase text-ivory-300/80 hover:text-gold-300 transition-colors py-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+          Torna alla Home
+        </button>
+        <span class="text-[11px] font-mono tracking-widest uppercase text-gold-400/80">Dossier N. 26/27</span>
+      </div>
+
+      <!-- Card del Modulo -->
+      <div class="relative rounded-3xl bg-gradient-to-b from-obsidian-800/95 to-obsidian-900/98 border border-gold-400/30 shadow-[0_24px_70px_-15px_rgba(0,0,0,0.85)] overflow-hidden">
+        <!-- Intestazione Cremisi & Oro -->
+        <div class="px-6 sm:px-8 py-6 bg-gradient-to-r from-crimson-950 via-crimson-900/70 to-obsidian-900 border-b border-gold-400/25">
+          <p class="text-[10px] sm:text-[11px] font-semibold tracking-[0.26em] text-gold-300 uppercase mb-1.5">
+            Modulo di Adesione Ufficiale
+          </p>
+          <h2 class="font-diplomatic text-xl sm:text-2xl font-bold tracking-[0.08em] text-ivory-50">
+            RICHIESTA DI MEMBERSHIP
+          </h2>
+          <p class="text-xs sm:text-sm text-ivory-200/75 mt-1">
+            Compila i campi per emettere la tua tessera personale 2026/2027.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form id="registration-form" novalidate class="p-6 sm:p-8 space-y-5">
+          <!-- Nome e Cognome -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            <div>
+              <label for="input-firstName" class="block text-xs font-semibold tracking-[0.14em] uppercase text-gold-200/90 mb-2">
+                Nome <span class="text-crimson-600">*</span>
+              </label>
+              <input
+                id="input-firstName"
+                name="firstName"
+                type="text"
+                autocomplete="given-name"
+                placeholder="Es. Marco"
+                maxlength="40"
+                class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/90 border border-gold-400/25 text-ivory-100 placeholder-ivory-300/30 text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all"
+              />
+              <p id="error-firstName" class="hidden mt-1.5 text-xs text-red-400 flex items-center gap-1"></p>
+            </div>
+
+            <div>
+              <label for="input-lastName" class="block text-xs font-semibold tracking-[0.14em] uppercase text-gold-200/90 mb-2">
+                Cognome <span class="text-crimson-600">*</span>
+              </label>
+              <input
+                id="input-lastName"
+                name="lastName"
+                type="text"
+                autocomplete="family-name"
+                placeholder="Es. Rossi"
+                maxlength="40"
+                class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/90 border border-gold-400/25 text-ivory-100 placeholder-ivory-300/30 text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all"
+              />
+              <p id="error-lastName" class="hidden mt-1.5 text-xs text-red-400 flex items-center gap-1"></p>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="input-email" class="block text-xs font-semibold tracking-[0.14em] uppercase text-gold-200/90 mb-2">
+              Email <span class="text-crimson-600">*</span>
+            </label>
+            <input
+              id="input-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="nome@esempio.it"
+              maxlength="90"
+              class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/90 border border-gold-400/25 text-ivory-100 placeholder-ivory-300/30 text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all"
+            />
+            <p id="error-email" class="hidden mt-1.5 text-xs text-red-400"></p>
+          </div>
+
+          <!-- Data di nascita -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label for="input-dob" class="block text-xs font-semibold tracking-[0.14em] uppercase text-gold-200/90">
+                Data di nascita <span class="text-crimson-600">*</span>
+              </label>
+              <span class="text-[11px] font-medium text-gold-300/80 bg-crimson-950/90 border border-gold-400/25 px-2.5 py-0.5 rounded-full">
+                Solo 18+
+              </span>
+            </div>
+            <input
+              id="input-dob"
+              name="dob"
+              type="date"
+              class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/90 border border-gold-400/25 text-ivory-100 text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all [color-scheme:dark]"
+            />
+            <p class="mt-1.5 text-[11px] text-ivory-300/60">
+              Utilizzata esclusivamente in locale per verificare la maggiore età. Non viene mai stampata pubblicamente né inviata a server.
+            </p>
+            <p id="error-dob" class="hidden mt-1.5 text-xs text-red-400"></p>
+          </div>
+
+          <!-- Sezione Preferenze Diplomatiche -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-obsidian-950/90 via-crimson-950/25 to-obsidian-950/90 border border-gold-400/25 space-y-4">
+            <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-gold-400/15">
+              <div>
+                <p class="text-[10px] font-semibold tracking-[0.22em] uppercase text-gold-300">
+                  Profilo Tattico
+                </p>
+                <h3 class="font-diplomatic text-sm sm:text-base font-bold tracking-[0.08em] text-ivory-50">
+                  PREFERENZE DIPLOMATICHE
+                </h3>
+              </div>
+              <span class="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-gold-400/10 border border-gold-400/30 text-gold-200">
+                Incise su Tessera
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Fascia Prezzo / Budget -->
+              <div>
+                <label for="input-budget" class="block text-xs font-semibold tracking-[0.12em] uppercase text-gold-200/90 mb-1.5">
+                  Fascia Prezzo / Budget <span class="text-crimson-600">*</span>
+                </label>
+                <select
+                  id="input-budget"
+                  name="budget"
+                  class="w-full px-3.5 py-3 rounded-xl bg-obsidian-950 border border-gold-400/25 text-ivory-100 text-xs sm:text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all cursor-pointer"
+                >
+                  <option value="" disabled selected>Seleziona fascia...</option>
+                  <option value="€ · Low Cost">€ — Low Cost / Risparmio</option>
+                  <option value="€€ · Standard">€€ — Standard Diplomatico</option>
+                  <option value="€€€ · VIP">€€€ — VIP / Alta Classe</option>
+                  <option value="€€€€ · No Limits">€€€€ — Sceicco / No Limits</option>
+                </select>
+                <p id="error-budget" class="hidden mt-1.5 text-xs text-red-400"></p>
+              </div>
+
+              <!-- Dimensioni / Taglia -->
+              <div>
+                <label for="input-sizePref" class="block text-xs font-semibold tracking-[0.12em] uppercase text-gold-200/90 mb-1.5">
+                  Dimensioni / Taglia <span class="text-crimson-600">*</span>
+                </label>
+                <select
+                  id="input-sizePref"
+                  name="sizePref"
+                  class="w-full px-3.5 py-3 rounded-xl bg-obsidian-950 border border-gold-400/25 text-ivory-100 text-xs sm:text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all cursor-pointer"
+                >
+                  <option value="" disabled selected>Seleziona taglia...</option>
+                  <option value="Petite (S)">Petite / Compatta (S)</option>
+                  <option value="Armonica (M)">Armonica / Classica (M)</option>
+                  <option value="Curvy (L)">Curvy / Abbondante (L)</option>
+                  <option value="Extra (XL+)">Extra / Fuori Scala (XL+)</option>
+                  <option value="All-Inclusive">Qualsiasi / All-Inclusive</option>
+                </select>
+                <p id="error-sizePref" class="hidden mt-1.5 text-xs text-red-400"></p>
+              </div>
+
+              <!-- Stile / Tipologia -->
+              <div>
+                <label for="input-stylePref" class="block text-xs font-semibold tracking-[0.12em] uppercase text-gold-200/90 mb-1.5">
+                  Stile / Categoria <span class="text-crimson-600">*</span>
+                </label>
+                <select
+                  id="input-stylePref"
+                  name="stylePref"
+                  class="w-full px-3.5 py-3 rounded-xl bg-obsidian-950 border border-gold-400/25 text-ivory-100 text-xs sm:text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all cursor-pointer"
+                >
+                  <option value="" disabled selected>Seleziona stile...</option>
+                  <option value="Elegante">Elegante &amp; Raffinata</option>
+                  <option value="Trasgressiva">Trasgressiva &amp; Ribelle</option>
+                  <option value="Esotica">Esotica &amp; Internazionale</option>
+                  <option value="Sorpresa">Sorpresa della Casa</option>
+                </select>
+                <p id="error-stylePref" class="hidden mt-1.5 text-xs text-red-400"></p>
+              </div>
+
+              <!-- Formula / Durata -->
+              <div>
+                <label for="input-formulaPref" class="block text-xs font-semibold tracking-[0.12em] uppercase text-gold-200/90 mb-1.5">
+                  Formula / Durata <span class="text-crimson-600">*</span>
+                </label>
+                <select
+                  id="input-formulaPref"
+                  name="formulaPref"
+                  class="w-full px-3.5 py-3 rounded-xl bg-obsidian-950 border border-gold-400/25 text-ivory-100 text-xs sm:text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all cursor-pointer"
+                >
+                  <option value="" disabled selected>Seleziona formula...</option>
+                  <option value="Express">Toccata e Fuga (Express)</option>
+                  <option value="Full Night">Serata Completa (Full Night)</option>
+                  <option value="Weekend VIP">Weekend Diplomatico</option>
+                  <option value="Maratona 24h">Maratona Non-Stop</option>
+                </select>
+                <p id="error-formulaPref" class="hidden mt-1.5 text-xs text-red-400"></p>
+              </div>
+            </div>
+
+            <!-- Richieste Extra / Note Diplomatiche -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="input-customNote" class="block text-xs font-semibold tracking-[0.12em] uppercase text-gold-200/90">
+                  Extra / Richieste Particolari
+                </label>
+                <span class="text-[10px] text-ivory-300/55 uppercase tracking-wider">Opzionale</span>
+              </div>
+              <input
+                id="input-customNote"
+                name="customNote"
+                type="text"
+                maxlength="48"
+                placeholder="Es. Tacchi alti, champagne, vista mare..."
+                class="w-full px-3.5 py-3 rounded-xl bg-obsidian-950 border border-gold-400/25 text-ivory-100 placeholder-ivory-300/30 text-xs sm:text-sm focus:outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-400/20 transition-all"
+              />
+            </div>
+          </div>
+
+          <!-- Checkbox Termini e Privacy -->
+          <div class="p-4 rounded-2xl bg-obsidian-950/75 border border-gold-400/20">
+            <label for="input-terms" class="flex items-start gap-3.5 cursor-pointer select-none">
+              <input
+                id="input-terms"
+                name="terms"
+                type="checkbox"
+                class="mt-0.5 w-5 h-5 rounded border-gold-400/50 bg-obsidian-900 text-gold-400 accent-[#D4AF37] focus:ring-gold-400 cursor-pointer shrink-0"
+              />
+              <span class="text-xs sm:text-sm text-ivory-200/85 leading-relaxed">
+                Dichiaro di essere maggiorenne e accetto i
+                <button type="button" id="form-open-privacy" class="text-gold-300 underline underline-offset-2 hover:text-gold-100 font-medium cursor-pointer">
+                  Termini di Adesione e l’Informativa Privacy
+                </button>.
+                Comprendo che i dati sono elaborati solo sul mio dispositivo senza alcun invio a server esterni.
+              </span>
+            </label>
+            <p id="error-terms" class="hidden mt-2 text-xs text-red-400"></p>
+          </div>
+
+          <!-- Avviso sicurezza locale -->
+          <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-400/5 border border-gold-400/15 text-xs text-ivory-300/75">
+            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <span>Elaborazione 100% locale nel browser. Zero database, zero tracciamento esterno.</span>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 bg-[length:200%_100%] hover:animate-shimmer text-obsidian-950 font-diplomatic font-bold text-sm sm:text-base tracking-[0.18em] uppercase shadow-[0_12px_32px_-8px_rgba(212,175,55,0.45)] active:scale-[0.99] transition-all cursor-pointer"
+          >
+            EMETTI LA TUA TESSERA UFFICIALE
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 3: ANIMAZIONE DI RILASCIO MEMBERSHIP                          -->
+    <!-- =================================================================== -->
+    <section id="view-issuing" class="hidden w-full max-w-lg mx-auto text-center py-8 sm:py-12">
+      <div class="p-8 sm:p-10 rounded-3xl bg-obsidian-900/90 border border-gold-400/35 shadow-2xl relative overflow-hidden">
+        <!-- Anello rotante dorato -->
+        <div class="relative w-28 h-28 mx-auto mb-7 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full border-2 border-dashed border-gold-400/50 animate-spinSlow"></div>
+          <div class="absolute inset-2 rounded-full border border-crimson-700/80 bg-gradient-to-br from-crimson-950 to-obsidian-950 flex items-center justify-center shadow-inner">
+            <svg class="w-12 h-12 text-gold-300 animate-pulse" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 5L24.5 13.5L34 15L27 21.8L28.7 31.3L20 26.8L11.3 31.3L13 21.8L6 15L15.5 13.5L20 5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <circle cx="20" cy="20" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <p class="text-[11px] font-mono tracking-[0.26em] text-gold-400 uppercase mb-2">
+          Protocollo di Emissione in Corso
+        </p>
+        <h2 class="font-diplomatic text-xl sm:text-2xl font-bold text-ivory-50 tracking-[0.1em] mb-4">
+          CONIO DELLA TESSERA
+        </h2>
+
+        <!-- Stato dinamico -->
+        <p id="issuing-status-text" class="text-sm text-gold-200 font-medium min-h-[24px] mb-6">
+          Verifica requisiti anagrafici 18+...
+        </p>
+
+        <!-- Barra di avanzamento metallica -->
+        <div class="w-full h-2 rounded-full bg-obsidian-950 border border-gold-400/20 overflow-hidden mb-5">
+          <div id="issuing-progress-bar" class="h-full w-0 bg-gradient-to-r from-crimson-700 via-gold-400 to-gold-200 transition-all duration-500 ease-out rounded-full"></div>
+        </div>
+
+        <!-- Checklist visiva -->
+        <div class="space-y-2 text-left max-w-xs mx-auto text-xs font-mono text-ivory-300/70">
+          <div id="step-check-1" class="flex items-center gap-2.5 opacity-40 transition-opacity duration-300">
+            <span class="w-4 h-4 rounded-full border border-gold-400/50 flex items-center justify-center text-[10px] text-gold-300">✓</span>
+            <span>Verifica maggiore età locale</span>
+          </div>
+          <div id="step-check-2" class="flex items-center gap-2.5 opacity-40 transition-opacity duration-300">
+            <span class="w-4 h-4 rounded-full border border-gold-400/50 flex items-center justify-center text-[10px] text-gold-300">✓</span>
+            <span>Assegnazione codice identificativo</span>
+          </div>
+          <div id="step-check-3" class="flex items-center gap-2.5 opacity-40 transition-opacity duration-300">
+            <span class="w-4 h-4 rounded-full border border-gold-400/50 flex items-center justify-center text-[10px] text-gold-300">✓</span>
+            <span>Incisione preferenze, QR e filigrana aurea</span>
+          </div>
+          <div id="step-check-4" class="flex items-center gap-2.5 opacity-40 transition-opacity duration-300">
+            <span class="w-4 h-4 rounded-full border border-gold-400/50 flex items-center justify-center text-[10px] text-gold-300">✓</span>
+            <span>Archiviazione protetta sul dispositivo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VISTA 4: TESSERA GENERATA + WHATSAPP + GESTIONE                     -->
+    <!-- =================================================================== -->
+    <section id="view-member" class="hidden w-full max-w-4xl mx-auto space-y-8 animate-fadeUp">
+
+      <!-- Banner Congratulazioni & Ingresso WhatsApp -->
+      <div class="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-crimson-950 via-obsidian-900 to-obsidian-950 border border-gold-400/45 shadow-[0_20px_60px_-15px_rgba(107,15,26,0.55)] overflow-hidden text-center">
+        <div aria-hidden="true" class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-gold-400/10 blur-3xl pointer-events-none"></div>
+
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-400/15 border border-gold-400/40 text-gold-200 text-[11px] font-semibold tracking-[0.22em] uppercase mb-4 animate-sealStamp">
+          <svg class="w-3.5 h-3.5 text-gold-300" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+          </svg>
+          Membership Rilasciata
+        </div>
+
+        <h2 class="font-diplomatic text-xl sm:text-3xl md:text-[32px] font-bold tracking-[0.07em] leading-snug text-gold-100 max-w-3xl mx-auto mb-5">
+          CONGRATULAZIONI. SEI UFFICIALMENTE PARTE DEL PUTTANTOUR 2026/2027.
+        </h2>
+
+        <!-- Pulsante Grande WhatsApp -->
+        <div class="flex flex-col items-center gap-3">
+          <a
+            href="https://chat.whatsapp.com/KDhIkQNpuJ49xUUAEasIvQ?s=cl&p=i&iam=2"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group w-full sm:w-auto inline-flex items-center justify-center gap-3.5 px-7 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[#128C7E] via-[#1FA855] to-[#128C7E] bg-[length:200%_100%] hover:animate-shimmer text-white font-diplomatic font-bold text-sm sm:text-base tracking-[0.14em] uppercase border border-emerald-300/40 shadow-[0_14px_38px_-8px_rgba(31,168,85,0.5)] hover:shadow-[0_18px_44px_-6px_rgba(31,168,85,0.7)] active:scale-[0.99] transition-all"
+          >
+            <!-- Icona WhatsApp SVG -->
+            <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.031 2C6.506 2 2.01 6.495 2.01 12.02c0 1.766.462 3.49 1.339 5.012L2 22l5.107-1.339a9.978 9.978 0 004.924 1.298h.004c5.524 0 10.02-4.496 10.02-10.02C22.055 6.495 17.556 2 12.031 2zm5.841 14.179c-.246.693-1.44 1.326-1.992 1.404-.508.073-1.164.104-1.881-.123-.435-.138-.993-.322-1.71-.631-3.01-1.3-4.974-4.337-5.125-4.537-.15-.2-1.224-1.629-1.224-3.108 0-1.479.774-2.206 1.049-2.507.274-.301.599-.376.798-.376.2 0 .399.002.574.011.184.009.431-.07.674.514.249.6.849 2.079.924 2.229.075.15.125.325.025.525-.1.2-.15.325-.299.5-.15.175-.315.39-.45.524-.15.149-.306.311-.131.611.175.3.777 1.281 1.668 2.075 1.147 1.022 2.113 1.339 2.413 1.489.3.15.475.125.649-.075.175-.2.749-.874.949-1.174.2-.3.399-.25.674-.15.274.1 1.747.824 2.047.974.3.15.499.225.574.35.075.125.075.724-.171 1.417z"/>
+            </svg>
+            <span>ENTRA NEL GRUPPO WHATSAPP</span>
+            <svg class="w-4 h-4 opacity-90 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
+          </a>
+          <p class="text-xs text-ivory-300/70 max-w-md">
+            Il collegamento si apre in una nuova scheda. Completa autonomamente la richiesta di ingresso direttamente su WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <!-- Area Tessera Digitale Interattiva -->
+      <div class="flex flex-col items-center">
+        <!-- Wrapper prospettico per tilt 3D -->
+        <div id="card-tilt-wrapper" class="w-full max-w-[560px] [perspective:1200px]">
+          <div
+            id="digital-membership-card"
+            class="relative w-full rounded-[22px] sm:rounded-[26px] p-[1.5px] bg-gradient-to-br from-gold-200 via-gold-500 to-gold-300 shadow-[0_28px_70px_-14px_rgba(0,0,0,0.9),0_0_40px_-10px_rgba(212,175,55,0.28)] transition-transform duration-200 ease-out will-change-transform animate-pulseGold"
+          >
+            <!-- Corpo Interno Card -->
+            <div class="relative w-full rounded-[21px] sm:rounded-[25px] bg-gradient-to-br from-[#14141A] via-[#0B0B0F] to-[#1A080C] overflow-hidden p-4 sm:p-7 min-h-[245px] sm:min-h-[345px] flex flex-col justify-between gap-4">
+
+              <!-- Effetto riflesso metallico dinamico -->
+              <div id="card-sheen" aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-35 transition-opacity duration-300 bg-[radial-gradient(circle_at_30%_20%,rgba(243,225,164,0.24),transparent_55%)]"></div>
+
+              <!-- Filigrana Guilloché SVG (stile passaporto diplomatico) -->
+              <svg aria-hidden="true" class="pointer-events-none absolute inset-0 w-full h-full opacity-[0.09]" viewBox="0 0 600 380" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="guillocheGold" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#F3E1A4"/>
+                    <stop offset="50%" stop-color="#D4AF37"/>
+                    <stop offset="100%" stop-color="#8F6D13"/>
+                  </linearGradient>
+                </defs>
+                <path d="M-20 310 Q 150 210, 300 310 T 620 290" fill="none" stroke="url(#guillocheGold)" stroke-width="1.2"/>
+                <path d="M-20 325 Q 150 225, 300 325 T 620 305" fill="none" stroke="url(#guillocheGold)" stroke-width="1"/>
+                <path d="M-20 340 Q 150 240, 300 340 T 620 320" fill="none" stroke="url(#guillocheGold)" stroke-width="0.9"/>
+                <path d="M-20 70 Q 160 150, 330 60 T 630 95" fill="none" stroke="url(#guillocheGold)" stroke-width="1"/>
+                <path d="M-20 85 Q 160 165, 330 75 T 630 110" fill="none" stroke="url(#guillocheGold)" stroke-width="0.8"/>
+                <circle cx="495" cy="85" r="110" fill="none" stroke="url(#guillocheGold)" stroke-width="0.8" stroke-dasharray="3 4"/>
+                <circle cx="495" cy="85" r="82" fill="none" stroke="url(#guillocheGold)" stroke-width="0.7"/>
+              </svg>
+
+              <!-- Cornice interna sottile -->
+              <div aria-hidden="true" class="pointer-events-none absolute inset-2.5 sm:inset-3.5 rounded-[15px] sm:rounded-[18px] border border-gold-400/20"></div>
+
+              <!-- RIGA SUPERIORE TESSERA -->
+              <div class="relative z-10 flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5 sm:gap-3.5">
+                  <!-- Mini stemma dorato -->
+                  <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-crimson-800/90 to-obsidian-950 border border-gold-400/55 flex items-center justify-center shrink-0 shadow-md">
+                    <svg class="w-6 h-6 sm:w-7 sm:h-7 text-gold-200" viewBox="0 0 40 40" fill="none">
+                      <path d="M20 5L30 9.5V21C30 28 25.5 33.2 20 36C14.5 33.2 10 28 10 21V9.5L20 5Z" stroke="currentColor" stroke-width="1.6" fill="rgba(140,21,36,0.45)"/>
+                      <text x="20" y="23.5" text-anchor="middle" fill="#F3E1A4" font-family="Cinzel, serif" font-size="9.5" font-weight="700">PT</text>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="font-diplomatic text-xs sm:text-base font-bold tracking-[0.14em] bg-gradient-to-r from-gold-100 via-gold-300 to-gold-200 bg-clip-text text-transparent leading-tight">
+                      PUTTANTOUR 2026/2027
+                    </div>
+                    <div class="mt-1 inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-crimson-800/80 border border-gold-400/40 text-[9px] sm:text-[10px] font-bold tracking-[0.22em] text-gold-200 uppercase">
+                      OFFICIAL MEMBER
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stagione & Numerazione -->
+                <div class="text-right shrink-0">
+                  <div class="text-[8px] sm:text-[10px] uppercase tracking-[0.2em] text-gold-300/75 font-semibold">
+                    Stagione
+                  </div>
+                  <div class="font-diplomatic text-xs sm:text-sm font-bold text-ivory-100 tracking-wider">
+                    2026/2027
+                  </div>
+                  <div id="card-edition-no" class="font-mono text-[9px] sm:text-[10px] text-gold-400/90 mt-0.5">
+                    NO. 00000
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGA CENTRALE: CHIP METALLICO + MOTTO -->
+              <div class="relative z-10 flex items-center justify-between gap-3 my-0.5 sm:my-1">
+                <!-- Chip EMV Oro -->
+                <div class="w-10 h-7 sm:w-12 sm:h-9 rounded-md bg-gradient-to-br from-gold-200 via-gold-400 to-gold-600 border border-gold-100/60 p-1 shadow-inner flex items-center justify-center shrink-0">
+                  <svg class="w-full h-full text-obsidian-950/65" viewBox="0 0 40 28" fill="none">
+                    <rect x="1" y="1" width="38" height="26" rx="3" stroke="currentColor" stroke-width="1.2"/>
+                    <line x1="13" y1="1" x2="13" y2="27" stroke="currentColor" stroke-width="1.1"/>
+                    <line x1="27" y1="1" x2="27" y2="27" stroke="currentColor" stroke-width="1.1"/>
+                    <line x1="1" y1="9" x2="13" y2="9" stroke="currentColor" stroke-width="1.1"/>
+                    <line x1="1" y1="19" x2="13" y2="19" stroke="currentColor" stroke-width="1.1"/>
+                    <line x1="27" y1="9" x2="39" y2="9" stroke="currentColor" stroke-width="1.1"/>
+                    <line x1="27" y1="19" x2="39" y2="19" stroke="currentColor" stroke-width="1.1"/>
+                    <rect x="15" y="9" width="10" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
+                  </svg>
+                </div>
+
+                <div class="text-right">
+                  <p class="font-editorial italic text-xs sm:text-base text-ivory-200/80 tracking-wide">
+                    “Non è un viaggio. È una tradizione.”
+                  </p>
+                </div>
+              </div>
+
+              <!-- FASCIA PREFERENZE DIPLOMATICHE INCISA SULLA CARD -->
+              <div class="relative z-10 rounded-xl bg-obsidian-950/65 border border-gold-400/25 px-3 py-2.5 sm:px-3.5 sm:py-3 backdrop-blur-sm">
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-[8px] sm:text-[9px] font-semibold uppercase tracking-[0.22em] text-gold-300/80">
+                    Preferenze Diplomatiche
+                  </span>
+                  <span class="h-px flex-1 bg-gradient-to-r from-gold-400/30 to-transparent"></span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div class="min-w-0">
+                    <div class="text-[7px] sm:text-[8px] uppercase tracking-[0.16em] text-ivory-300/60">Budget</div>
+                    <div id="card-pref-budget" class="text-[10px] sm:text-[11px] font-semibold text-gold-200 truncate">—</div>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-[7px] sm:text-[8px] uppercase tracking-[0.16em] text-ivory-300/60">Dimensioni</div>
+                    <div id="card-pref-size" class="text-[10px] sm:text-[11px] font-semibold text-ivory-100 truncate">—</div>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-[7px] sm:text-[8px] uppercase tracking-[0.16em] text-ivory-300/60">Stile</div>
+                    <div id="card-pref-style" class="text-[10px] sm:text-[11px] font-semibold text-ivory-100 truncate">—</div>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-[7px] sm:text-[8px] uppercase tracking-[0.16em] text-ivory-300/60">Formula</div>
+                    <div id="card-pref-formula" class="text-[10px] sm:text-[11px] font-semibold text-ivory-100 truncate">—</div>
+                  </div>
+                </div>
+                <div id="card-pref-note-row" class="hidden mt-2 pt-1.5 border-t border-gold-400/15 flex items-center gap-1.5 text-[9px] sm:text-[10px] text-ivory-200/85">
+                  <span class="uppercase tracking-[0.16em] text-gold-300/80 font-semibold shrink-0">Extra:</span>
+                  <span id="card-pref-note" class="italic truncate"></span>
+                </div>
+              </div>
+
+              <!-- RIGA INFERIORE: DATI TITOLARE + QR CODE -->
+              <div class="relative z-10 flex items-end justify-between gap-3 pt-2 border-t border-gold-400/20">
+                <!-- Dati Titolare -->
+                <div class="min-w-0 flex-1 space-y-2">
+                  <div>
+                    <div class="text-[8px] sm:text-[9px] uppercase tracking-[0.22em] text-gold-300/70 font-semibold">
+                      Titolare
+                    </div>
+                    <div id="card-full-name" class="font-diplomatic text-sm sm:text-xl font-bold tracking-[0.08em] text-ivory-50 uppercase truncate">
+                      NOME COGNOME
+                    </div>
+                    <div id="card-email" class="text-[10px] sm:text-xs text-ivory-300/80 truncate font-sans mt-0.5">
+                      email@esempio.it
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-x-4 gap-y-1 pt-0.5">
+                    <div>
+                      <div class="text-[8px] uppercase tracking-[0.2em] text-gold-300/65">Codice ID</div>
+                      <div id="card-member-id" class="font-mono text-[10px] sm:text-xs font-semibold text-gold-200 tracking-wider">
+                        PT26-0000-XXXX
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-[8px] uppercase tracking-[0.2em] text-gold-300/65">Registrazione</div>
+                      <div id="card-reg-date" class="font-mono text-[10px] sm:text-xs text-ivory-200/90">
+                        00/00/2026
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- QR Code Identificativo -->
+                <div class="shrink-0 flex flex-col items-center">
+                  <div id="card-qr-container" class="w-16 h-16 sm:w-22 sm:h-22 p-1.5 rounded-xl bg-ivory-50 border-2 border-gold-400/70 shadow-lg flex items-center justify-center">
+                    <!-- SVG QR generato via JS -->
+                  </div>
+                  <span class="text-[7px] sm:text-[8px] font-mono uppercase tracking-[0.18em] text-gold-300/75 mt-1">
+                    LOCAL PASS QR
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Interruttore Privacy per Condivisione / Screenshot -->
+        <div class="w-full max-w-[560px] mt-4 flex items-center justify-between gap-3 px-4 py-3 rounded-2xl bg-obsidian-900/85 border border-gold-400/20">
+          <div class="flex items-center gap-2.5 text-xs text-ivory-200/85">
+            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+            </svg>
+            <span>Oscura email sulla tessera e nel PNG (consigliato prima di condividere)</span>
+          </div>
+          <button
+            id="toggle-mask-email"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border border-gold-400/40 bg-obsidian-950 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+          >
+            <span id="toggle-mask-knob" class="pointer-events-none inline-block h-5 w-5 translate-x-0 rounded-full bg-ivory-300 shadow transition duration-200"></span>
+          </button>
+        </div>
+
+        <!-- Barra Azioni Tessera -->
+        <div class="w-full max-w-[560px] grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <!-- Scarica PNG -->
+          <button
+            id="btn-download-png"
+            type="button"
+            class="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-gradient-to-b from-gold-400/20 to-gold-500/10 hover:from-gold-400/30 hover:to-gold-500/20 border border-gold-400/50 text-gold-100 text-xs font-semibold tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-gold-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            <span>Scarica PNG</span>
+          </button>
+
+          <!-- Schermo Intero -->
+          <button
+            id="btn-fullscreen"
+            type="button"
+            class="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-obsidian-800/90 hover:bg-obsidian-700/90 border border-gold-400/25 hover:border-gold-400/50 text-ivory-100 text-xs font-semibold tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-gold-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            </svg>
+            <span>Ingrandisci</span>
+          </button>
+
+          <!-- Condividi -->
+          <button
+            id="btn-share"
+            type="button"
+            class="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-obsidian-800/90 hover:bg-obsidian-700/90 border border-gold-400/25 hover:border-gold-400/50 text-ivory-100 text-xs font-semibold tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-gold-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+            </svg>
+            <span>Condividi</span>
+          </button>
+
+          <!-- Copia Codice ID -->
+          <button
+            id="btn-copy-id"
+            type="button"
+            class="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 py-3.5 rounded-2xl bg-obsidian-800/90 hover:bg-obsidian-700/90 border border-gold-400/25 hover:border-gold-400/50 text-ivory-100 text-xs font-semibold tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-gold-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+            </svg>
+            <span id="copy-id-label">Copia ID</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Informative Obbligatorie su Codice Locale e Conservazione -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-5 rounded-2xl bg-obsidian-900/80 border border-gold-400/20">
+          <div class="flex items-center gap-2 text-gold-300 text-xs font-semibold uppercase tracking-[0.16em] mb-2">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+            Natura del Codice Identificativo
+          </div>
+          <p class="text-xs text-ivory-300/75 leading-relaxed">
+            Il codice identificativo (<span id="info-member-id" class="font-mono text-gold-200"></span>) è generato localmente sul tuo dispositivo e <strong>non rappresenta una verifica centralizzata dell’iscrizione</strong>.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-obsidian-900/80 border border-gold-400/20">
+          <div class="flex items-center gap-2 text-gold-300 text-xs font-semibold uppercase tracking-[0.16em] mb-2">
+            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+            </svg>
+            Archiviazione Locale &amp; Privacy
+          </div>
+          <p class="text-xs text-ivory-300/75 leading-relaxed">
+            La tessera è salvata esclusivamente nella memoria del browser (<code class="text-gold-200">localStorage</code>). Nessun dato viene trasmesso a server esterni: cancellando i dati del browser la tessera potrebbe andare persa. Ti consigliamo di scaricarla in PNG.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gestione Tessera Locale -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gold-400/15">
+        <button
+          id="btn-member-home"
+          type="button"
+          class="text-xs font-semibold tracking-[0.15em] uppercase text-ivory-300/75 hover:text-gold-200 transition-colors py-2 cursor-pointer"
+        >
+          ← Torna alla Homepage
+        </button>
+
+        <button
+          id="btn-open-reset-modal"
+          type="button"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-crimson-950/70 hover:bg-crimson-900/80 border border-crimson-700/60 text-red-200/90 text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+          </svg>
+          Rimuovi tessera locale / Nuova iscrizione
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER DIPLOMATICO -->
+  <footer class="relative z-10 w-full border-t border-gold-400/15 bg-obsidian-950/90 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div class="text-xs text-ivory-300/60">
+        <span class="font-diplomatic text-gold-300/90 tracking-widest">PUTTANTOUR 2026/2027</span>
+        <span class="mx-2 text-gold-400/40">•</span>
+        <span>Official Membership Portal</span>
+      </div>
+      <div class="text-[11px] text-ivory-300/50">
+        100% Frontend Locale • Nessun dato inviato a terzi • Riservato 18+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- MODALE SCHERMO INTERO TESSERA                                         -->
+  <!-- ===================================================================== -->
+  <div id="modal-fullscreen" class="hidden fixed inset-0 z-50 bg-obsidian-950/95 backdrop-blur-xl flex flex-col items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Visualizzazione tessera a schermo intero">
+    <div class="w-full max-w-4xl flex items-center justify-between mb-4 sm:mb-6">
+      <div class="font-diplomatic text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase">
+        Modalità Esposizione Ufficiale
+      </div>
+      <button
+        id="btn-close-fullscreen"
+        type="button"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-obsidian-800 hover:bg-obsidian-700 border border-gold-400/35 text-ivory-100 text-xs font-semibold tracking-wider uppercase cursor-pointer"
+      >
+        Chiudi
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Anteprima ad altissima risoluzione (Canvas renderizzato come immagine nitida) -->
+    <div class="w-full max-w-3xl rounded-3xl p-1 bg-gradient-to-br from-gold-200 via-gold-500 to-gold-300 shadow-[0_30px_90px_-10px_rgba(212,175,55,0.3)]">
+      <img
+        id="fullscreen-card-img"
+        alt="Tessera Ufficiale Puttantour 2026/2027"
+        class="w-full h-auto rounded-[22px] block select-none"
+      />
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <button
+        id="btn-fullscreen-download"
+        type="button"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-500 text-obsidian-950 font-diplomatic font-bold text-xs tracking-[0.16em] uppercase shadow-lg cursor-pointer"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Scarica PNG HD
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODALE PRIVACY E STATUTO                                              -->
+  <!-- ===================================================================== -->
+  <div id="modal-privacy" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+    <div class="w-full max-w-lg rounded-3xl bg-obsidian-900 border border-gold-400/35 shadow-2xl overflow-hidden max-h-[88vh] flex flex-col">
+      <div class="px-6 py-5 bg-gradient-to-r from-crimson-950 to-obsidian-900 border-b border-gold-400/20 flex items-center justify-between">
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.22em] text-gold-300 font-semibold">Documento Ufficiale</p>
+          <h3 id="privacy-modal-title" class="font-diplomatic text-lg font-bold text-ivory-50 tracking-wider">
+            PRIVACY &amp; TERMINI DI ADESIONE
+          </h3>
+        </div>
+        <button id="btn-close-privacy" type="button" class="p-2 rounded-xl text-ivory-300 hover:text-gold-200 hover:bg-obsidian-800 transition-colors cursor-pointer" aria-label="Chiudi">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 overflow-y-auto text-xs sm:text-sm text-ivory-200/80 leading-relaxed">
+        <div>
+          <h4 class="font-diplomatic text-gold-300 text-xs uppercase tracking-[0.16em] mb-1">1. Nessuna trasmissione esterna</h4>
+          <p>
+            Questo portale funziona esclusivamente lato client nel tuo browser. Nome, cognome, email e data di nascita <strong>non vengono mai inviati a server esterni</strong>, database, API o servizi di terze parti.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-diplomatic text-gold-300 text-xs uppercase tracking-[0.16em] mb-1">2. Conservazione locale della tessera</h4>
+          <p>
+            La tessera generata viene memorizzata unicamente nel <code class="text-gold-200">localStorage</code> del browser in uso, per permetterti di recuperarla facilmente dallo stesso dispositivo. Cancellando la cache, i cookie o i dati del browser, la tessera andrà persa e dovrai rigenerarla.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-diplomatic text-gold-300 text-xs uppercase tracking-[0.16em] mb-1">3. Riservatezza di email e data di nascita</h4>
+          <p>
+            La data di nascita è verificata localmente al solo scopo di accertare il requisito dei 18 anni e non viene mai pubblicata né mostrata sulla tessera. Puoi inoltre oscurare la tua email direttamente dalla tessera prima di salvarla o condividerla.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-diplomatic text-gold-300 text-xs uppercase tracking-[0.16em] mb-1">4. Valore del codice identificativo</h4>
+          <p>
+            Il codice univoco e il QR code presenti sulla tessera hanno valore goliardico e identificativo locale: non costituiscono una registrazione centralizzata né un documento legale.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-diplomatic text-gold-300 text-xs uppercase tracking-[0.16em] mb-1">5. Accesso al gruppo WhatsApp</h4>
+          <p>
+            L’ingresso al gruppo WhatsApp ufficiale avviene volontariamente cliccando sul collegamento dedicato e completando la procedura direttamente sull’applicazione WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <div class="px-6 py-4 bg-obsidian-950/80 border-t border-gold-400/15 flex justify-end">
+        <button id="btn-accept-close-privacy" type="button" class="px-5 py-2.5 rounded-xl bg-gold-400/20 hover:bg-gold-400/30 border border-gold-400/50 text-gold-200 text-xs font-bold tracking-wider uppercase cursor-pointer">
+          Ho capito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODALE CONFERMA ELIMINAZIONE TESSERA LOCALE                           -->
+  <!-- ===================================================================== -->
+  <div id="modal-reset" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+    <div class="w-full max-w-md rounded-3xl bg-obsidian-900 border border-crimson-700/70 shadow-2xl p-6 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-crimson-950 border border-crimson-700/70 flex items-center justify-center text-red-300 mx-auto mb-4">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+      </div>
+      <h3 id="reset-modal-title" class="font-diplomatic text-lg font-bold text-ivory-50 tracking-wider mb-2">
+        RIMUOVERE LA TESSERA LOCALE?
+      </h3>
+      <p class="text-xs sm:text-sm text-ivory-300/75 leading-relaxed mb-6">
+        Questa azione elimina i dati della tessera salvati in questo browser e ti permette di effettuare una nuova registrazione. Se non l’hai ancora fatto, scarica prima il file PNG.
+      </p>
+      <div class="grid grid-cols-2 gap-3">
+        <button id="btn-cancel-reset" type="button" class="py-3 px-4 rounded-xl bg-obsidian-800 hover:bg-obsidian-700 border border-gold-400/25 text-ivory-100 text-xs font-semibold tracking-wider uppercase cursor-pointer">
+          Annulla
+        </button>
+        <button id="btn-confirm-reset" type="button" class="py-3 px-4 rounded-xl bg-crimson-800 hover:bg-crimson-700 border border-crimson-600 text-ivory-50 text-xs font-bold tracking-wider uppercase cursor-pointer">
+          Conferma
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- TOAST DI NOTIFICA (SOSTITUISCE COMPLETAMENTE ALERT)                   -->
+  <!-- ===================================================================== -->
+  <div id="toast-container" aria-live="polite" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] w-[92vw] max-w-md pointer-events-none flex flex-col items-center gap-2"></div>
+
+  <!-- ===================================================================== -->
+  <!-- LOGICA APPLICATIVA 100% FRONTEND                                      -->
+  <!-- ===================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // =====================================================================
+      // COSTANTI & STATO GLOBALE
+      // =====================================================================
+      const STORAGE_KEY = 'puttantour_2026_2027_membership_v1';
+      const SEASON_LABEL = '2026/2027';
+      const WHATSAPP_URL = 'https://chat.whatsapp.com/KDhIkQNpuJ49xUUAEasIvQ?s=cl&p=i&iam=2';
+
+      let currentMember = null;
+      let maskEmailOnCard = false;
+
+      // Riferimenti DOM principali
+      const views = {
+        home: document.getElementById('view-home'),
+        register: document.getElementById('view-register'),
+        issuing: document.getElementById('view-issuing'),
+        member: document.getElementById('view-member'),
+      };
+
+      const el = {
+        navBrandBtn: document.getElementById('nav-brand-btn'),
+        navSavedCardBtn: document.getElementById('nav-saved-card-btn'),
+        navPrivacyBtn: document.getElementById('nav-privacy-btn'),
+
+        ctaStartRegistration: document.getElementById('cta-start-registration'),
+        homeSavedBanner: document.getElementById('home-saved-banner'),
+        homeSavedName: document.getElementById('home-saved-name'),
+        homeSavedId: document.getElementById('home-saved-id'),
+        homeRecoverBtn: document.getElementById('home-recover-btn'),
+
+        btnBackHome: document.getElementById('btn-back-home'),
+        form: document.getElementById('registration-form'),
+        inputFirstName: document.getElementById('input-firstName'),
+        inputLastName: document.getElementById('input-lastName'),
+        inputEmail: document.getElementById('input-email'),
+        inputDob: document.getElementById('input-dob'),
+        inputBudget: document.getElementById('input-budget'),
+        inputSizePref: document.getElementById('input-sizePref'),
+        inputStylePref: document.getElementById('input-stylePref'),
+        inputFormulaPref: document.getElementById('input-formulaPref'),
+        inputCustomNote: document.getElementById('input-customNote'),
+        inputTerms: document.getElementById('input-terms'),
+        formOpenPrivacy: document.getElementById('form-open-privacy'),
+
+        errFirstName: document.getElementById('error-firstName'),
+        errLastName: document.getElementById('error-lastName'),
+        errEmail: document.getElementById('error-email'),
+        errDob: document.getElementById('error-dob'),
+        errBudget: document.getElementById('error-budget'),
+        errSizePref: document.getElementById('error-sizePref'),
+        errStylePref: document.getElementById('error-stylePref'),
+        errFormulaPref: document.getElementById('error-formulaPref'),
+        errTerms: document.getElementById('error-terms'),
+
+        issuingStatusText: document.getElementById('issuing-status-text'),
+        issuingProgressBar: document.getElementById('issuing-progress-bar'),
+        stepChecks: [
+          document.getElementById('step-check-1'),
+          document.getElementById('step-check-2'),
+          document.getElementById('step-check-3'),
+          document.getElementById('step-check-4'),
+        ],
+
+        cardTiltWrapper: document.getElementById('card-tilt-wrapper'),
+        digitalCard: document.getElementById('digital-membership-card'),
+        cardSheen: document.getElementById('card-sheen'),
+        cardFullName: document.getElementById('card-full-name'),
+        cardEmail: document.getElementById('card-email'),
+        cardMemberId: document.getElementById('card-member-id'),
+        cardRegDate: document.getElementById('card-reg-date'),
+        cardEditionNo: document.getElementById('card-edition-no'),
+        cardQrContainer: document.getElementById('card-qr-container'),
+        cardPrefBudget: document.getElementById('card-pref-budget'),
+        cardPrefSize: document.getElementById('card-pref-size'),
+        cardPrefStyle: document.getElementById('card-pref-style'),
+        cardPrefFormula: document.getElementById('card-pref-formula'),
+        cardPrefNoteRow: document.getElementById('card-pref-note-row'),
+        cardPrefNote: document.getElementById('card-pref-note'),
+        infoMemberId: document.getElementById('info-member-id'),
+
+        toggleMaskEmail: document.getElementById('toggle-mask-email'),
+        toggleMaskKnob: document.getElementById('toggle-mask-knob'),
+
+        btnDownloadPng: document.getElementById('btn-download-png'),
+        btnFullscreen: document.getElementById('btn-fullscreen'),
+        btnShare: document.getElementById('btn-share'),
+        btnCopyId: document.getElementById('btn-copy-id'),
+        copyIdLabel: document.getElementById('copy-id-label'),
+        btnMemberHome: document.getElementById('btn-member-home'),
+        btnOpenResetModal: document.getElementById('btn-open-reset-modal'),
+
+        modalFullscreen: document.getElementById('modal-fullscreen'),
+        fullscreenCardImg: document.getElementById('fullscreen-card-img'),
+        btnCloseFullscreen: document.getElementById('btn-close-fullscreen'),
+        btnFullscreenDownload: document.getElementById('btn-fullscreen-download'),
+
+        modalPrivacy: document.getElementById('modal-privacy'),
+        btnClosePrivacy: document.getElementById('btn-close-privacy'),
+        btnAcceptClosePrivacy: document.getElementById('btn-accept-close-privacy'),
+
+        modalReset: document.getElementById('modal-reset'),
+        btnCancelReset: document.getElementById('btn-cancel-reset'),
+        btnConfirmReset: document.getElementById('btn-confirm-reset'),
+
+        toastContainer: document.getElementById('toast-container'),
+      };
+
+      // =====================================================================
+      // UTILITÀ GENERALI: TOAST, STORAGE, FORMATTAZIONE, CLIPBOARD
+      // =====================================================================
+
+      /**
+       * Mostra un messaggio toast elegante in fondo allo schermo.
+       */
+      function showToast(message, type = 'gold') {
+        const toast = document.createElement('div');
+        const palette = type === 'error'
+          ? 'bg-crimson-950/95 border-red-400/50 text-red-100'
+          : type === 'success'
+            ? 'bg-obsidian-900/95 border-emerald-400/50 text-emerald-100'
+            : 'bg-obsidian-900/95 border-gold-400/55 text-gold-100';
+
+        toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-2xl backdrop-blur-md text-xs sm:text-sm font-medium flex items-center gap-2.5 transition-all duration-300 opacity-0 translate-y-3 ${palette}`;
+        toast.textContent = message;
+
+        el.toastContainer.appendChild(toast);
+
+        requestAnimationFrame(() => {
+          toast.classList.remove('opacity-0', 'translate-y-3');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2');
+          setTimeout(() => toast.remove(), 320);
+        }, 3200);
+      }
+
+      /**
+       * Salva la tessera nel localStorage (esclusivamente in locale).
+       * Nota: Non salviamo la data di nascita per minimizzare i dati conservati.
+       */
+      function saveMemberLocally(member) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(member));
+          return true;
+        } catch (err) {
+          console.error('Errore salvataggio localStorage:', err);
+          showToast('Impossibile salvare nel browser (modalità privata attiva). Scarica il PNG!', 'error');
+          return false;
+        }
+      }
+
+      /**
+       * Recupera eventuale tessera salvata nel localStorage.
+       */
+      function loadMemberLocally() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.id && parsed.firstName && parsed.lastName && parsed.email) {
+            return parsed;
+          }
+          return null;
+        } catch (err) {
+          console.error('Errore lettura localStorage:', err);
+          return null;
+        }
+      }
+
+      /**
+       * Rimuove la tessera salvata dal localStorage.
+       */
+      function clearMemberLocally() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (err) {
+          console.error('Errore rimozione localStorage:', err);
+        }
+      }
+
+      /**
+       * Copia testo negli appunti tramite document.execCommand('copy') per piena compatibilità.
+       */
+      function copyTextToClipboard(text) {
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          textarea.style.top = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, textarea.value.length);
+          const success = document.execCommand('copy');
+          document.body.removeChild(textarea);
+          return success;
+        } catch (err) {
+          console.error('Errore copia negli appunti:', err);
+          return false;
+        }
+      }
+
+      /**
+       * Genera un codice identificativo univoco locale (es. PT26-4821-K9M4)
+       * e un numero di serie di edizione (es. NO. 04821).
+       */
+      function generateUniqueIdentifiers() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        const randomBlock = (len) => {
+          let out = '';
+          const array = new Uint32Array(len);
+          if (window.crypto && window.crypto.getRandomValues) {
+            window.crypto.getRandomValues(array);
+            for (let i = 0; i < len; i++) {
+              out += chars[array[i] % chars.length];
+            }
+          } else {
+            for (let i = 0; i < len; i++) {
+              out += chars[Math.floor(Math.random() * chars.length)];
+            }
+          }
+          return out;
+        };
+
+        const digitsNum = window.crypto && window.crypto.getRandomValues
+          ? (window.crypto.getRandomValues(new Uint32Array(1))[0] % 9000) + 1000
+          : Math.floor(1000 + Math.random() * 9000);
+
+        const suffix = randomBlock(4);
+        const id = `PT26-${digitsNum}-${suffix}`;
+        const editionNo = `NO. 0${digitsNum}`;
+        return { id, editionNo };
+      }
+
+      /**
+       * Formatta la data odierna in italiano (GG/MM/AAAA).
+       */
+      function formatItalianDate(dateObj) {
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const y = dateObj.getFullYear();
+        return `${d}/${m}/${y}`;
+      }
+
+      /**
+       * Oscura parzialmente l'email per tutelare la privacy in caso di condivisione pubblica.
+       */
+      function getDisplayEmail(email, shouldMask) {
+        if (!shouldMask) return email;
+        const parts = email.split('@');
+        if (parts.length !== 2) return '•••••@•••••';
+        const local = parts[0];
+        const domain = parts[1];
+        const visibleLocal = local.length <= 2 ? local[0] + '•' : local.slice(0, 2) + '••••';
+        const domainParts = domain.split('.');
+        const tld = domainParts.length > 1 ? '.' + domainParts[domainParts.length - 1] : '';
+        const visibleDomain = domainParts[0].slice(0, 2) + '•••' + tld;
+        return `${visibleLocal}@${visibleDomain}`;
+      }
+
+      /**
+       * Calcola l'età esatta in anni compiuti rispetto alla data corrente.
+       */
+      function calculateExactAge(dobString) {
+        if (!dobString) return -1;
+        const [year, month, day] = dobString.split('-').map(Number);
+        if (!year || !month || !day) return -1;
+        const dob = new Date(year, month - 1, day);
+        if (Number.isNaN(dob.getTime())) return -1;
+
+        const today = new Date();
+        // Controllo anti-date future
+        if (dob > today) return -1;
+
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        return age;
+      }
+
+      // =====================================================================
+      // GENERATORE QR CODE DETERMINISTICO OFFLINE (ZERO LIBRERIE ESTERNE)
+      // =====================================================================
+
+      /**
+       * Produce una matrice booleana 21x21 stile QR Version 1 deterministica
+       * basata sull'hash crittografico leggero del codice identificativo.
+       */
+      function generateQrMatrix(seedText) {
+        const size = 21;
+        const matrix = Array.from({ length: size }, () => Array(size).fill(false));
+        const reserved = Array.from({ length: size }, () => Array(size).fill(false));
+
+        // Disegna i 3 finder pattern agli angoli (7x7 + separatore 1px)
+        const placeFinder = (startRow, startCol) => {
+          for (let r = -1; r <= 7; r++) {
+            for (let c = -1; c <= 7; c++) {
+              const nr = startRow + r;
+              const nc = startCol + c;
+              if (nr < 0 || nr >= size || nc < 0 || nc >= size) continue;
+              reserved[nr][nc] = true;
+              if (r === -1 || r === 7 || c === -1 || c === 7) {
+                matrix[nr][nc] = false;
+              } else if (
+                r === 0 || r === 6 || c === 0 || c === 6 ||
+                (r >= 2 && r <= 4 && c >= 2 && c <= 4)
+              ) {
+                matrix[nr][nc] = true;
+              } else {
+                matrix[nr][nc] = false;
+              }
+            }
+          }
+        };
+
+        placeFinder(0, 0);
+        placeFinder(0, size - 7);
+        placeFinder(size - 7, 0);
+
+        // Timing patterns (riga 6 e colonna 6)
+        for (let i = 8; i < size - 8; i++) {
+          reserved[6][i] = true;
+          matrix[6][i] = i % 2 === 0;
+          reserved[i][6] = true;
+          matrix[i][6] = i % 2 === 0;
+        }
+
+        // PRNG deterministico (xorshift32 inizializzato da FNV-1a sul seed)
+        let hash = 2166136261;
+        for (let i = 0; i < seedText.length; i++) {
+          hash ^= seedText.charCodeAt(i);
+          hash = Math.imul(hash, 16777619);
+        }
+        let state = (hash >>> 0) || 0xA5A5A5A5;
+
+        const nextBit = () => {
+          state ^= state << 13;
+          state ^= state >>> 17;
+          state ^= state << 5;
+          return ((state >>> 0) & 1) === 1;
+        };
+
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (!reserved[r][c]) {
+              matrix[r][c] = nextBit();
+            }
+          }
+        }
+
+        return matrix;
+      }
+
+      /**
+       * Genera l'SVG nitido del QR Code per la tessera HTML.
+       */
+      function buildQrSvg(seedText) {
+        const matrix = generateQrMatrix(seedText);
+        const size = matrix.length;
+        let rects = '';
+
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (matrix[r][c]) {
+              rects += `<rect x="${c}" y="${r}" width="1" height="1" rx="0.12" fill="#0B0B0E"/>`;
+            }
+          }
+        }
+
+        return `<svg viewBox="0 0 ${size} ${size}" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR Code identificativo ${seedText}">${rects}</svg>`;
+      }
+
+      // =====================================================================
+      // ESPORTAZIONE PNG AD ALTA RISOLUZIONE (HTML5 CANVAS 1200x756)
+      // =====================================================================
+
+      /**
+       * Disegna un rettangolo con angoli arrotondati compatibile con tutti i browser.
+       */
+      function drawRoundedRectPath(ctx, x, y, w, h, r) {
+        const radius = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.arcTo(x + w, y, x + w, y + h, radius);
+        ctx.arcTo(x + w, y + h, x, y + h, radius);
+        ctx.arcTo(x, y + h, x, y, radius);
+        ctx.arcTo(x, y, x + w, y, radius);
+        ctx.closePath();
+      }
+
+      /**
+       * Renderizza la tessera ufficiale ad altissima qualità (1200x756 px)
+       * su un canvas in memoria e restituisce il canvas pronto per PNG/Share/Fullscreen.
+       */
+      async function renderCardToCanvas(member, shouldMaskEmail) {
+        // Attende il caricamento dei font web per un risultato tipografico perfetto
+        if (document.fonts && document.fonts.ready) {
+          try {
+            await document.fonts.ready;
+          } catch (_) {
+            // Prosegue con font di fallback se necessario
+          }
+        }
+
+        const W = 1200;
+        const H = 756;
+        const canvas = document.createElement('canvas');
+        canvas.width = W;
+        canvas.height = H;
+        const ctx = canvas.getContext('2d');
+
+        // 1. Bordo esterno oro metallizzato con angoli arrotondati
+        ctx.save();
+        drawRoundedRectPath(ctx, 0, 0, W, H, 46);
+        ctx.clip();
+
+        const outerGold = ctx.createLinearGradient(0, 0, W, H);
+        outerGold.addColorStop(0, '#F3E1A4');
+        outerGold.addColorStop(0.35, '#D4AF37');
+        outerGold.addColorStop(0.65, '#8F6D13');
+        outerGold.addColorStop(1, '#E5C66B');
+        ctx.fillStyle = outerGold;
+        ctx.fillRect(0, 0, W, H);
+
+        // 2. Corpo interno nero ossidiana -> cremisi profondo
+        drawRoundedRectPath(ctx, 5, 5, W - 10, H - 10, 42);
+        ctx.save();
+        ctx.clip();
+
+        const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+        bgGrad.addColorStop(0, '#16161D');
+        bgGrad.addColorStop(0.5, '#0A0A0E');
+        bgGrad.addColorStop(1, '#22070D');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, W, H);
+
+        // Bagliori ambientali interni
+        const crimsonGlow = ctx.createRadialGradient(W * 0.88, H * 0.14, 20, W * 0.88, H * 0.14, 460);
+        crimsonGlow.addColorStop(0, 'rgba(140, 21, 36, 0.34)');
+        crimsonGlow.addColorStop(1, 'rgba(140, 21, 36, 0)');
+        ctx.fillStyle = crimsonGlow;
+        ctx.fillRect(0, 0, W, H);
+
+        const goldGlow = ctx.createRadialGradient(W * 0.22, H * 0.18, 10, W * 0.22, H * 0.18, 520);
+        goldGlow.addColorStop(0, 'rgba(243, 225, 164, 0.13)');
+        goldGlow.addColorStop(1, 'rgba(243, 225, 164, 0)');
+        ctx.fillStyle = goldGlow;
+        ctx.fillRect(0, 0, W, H);
+
+        // 3. Filigrana Guilloché procedurale
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.09)';
+        ctx.lineWidth = 1.6;
+        for (let i = 0; i < 6; i++) {
+          ctx.beginPath();
+          const offset = i * 22;
+          ctx.moveTo(-40, 560 + offset);
+          ctx.bezierCurveTo(320, 420 + offset, 760, 690 + offset, W + 40, 520 + offset);
+          ctx.stroke();
+        }
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          const offset = i * 20;
+          ctx.moveTo(-40, 120 + offset);
+          ctx.bezierCurveTo(360, 260 + offset, 780, 40 + offset, W + 40, 170 + offset);
+          ctx.stroke();
+        }
+
+        // Cerchi diplomatici filigranati in alto a destra
+        ctx.beginPath();
+        ctx.setLineDash([7, 9]);
+        ctx.arc(980, 165, 210, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.12)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.beginPath();
+        ctx.arc(980, 165, 155, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.09)';
+        ctx.stroke();
+
+        // 4. Cornice interna dorata sottile
+        drawRoundedRectPath(ctx, 28, 28, W - 56, H - 56, 28);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.30)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        // 5. Stemma PT in alto a sinistra
+        drawRoundedRectPath(ctx, 64, 62, 92, 92, 20);
+        const crestBg = ctx.createLinearGradient(64, 62, 156, 154);
+        crestBg.addColorStop(0, '#6B0F1A');
+        crestBg.addColorStop(1, '#12080B');
+        ctx.fillStyle = crestBg;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(229, 198, 107, 0.7)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Scudo vettoriale nello stemma
+        ctx.beginPath();
+        ctx.moveTo(110, 78);
+        ctx.lineTo(136, 89);
+        ctx.lineTo(136, 114);
+        ctx.quadraticCurveTo(136, 132, 110, 141);
+        ctx.quadraticCurveTo(84, 132, 84, 114);
+        ctx.lineTo(84, 89);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(140, 21, 36, 0.55)';
+        ctx.fill();
+        ctx.strokeStyle = '#F3E1A4';
+        ctx.lineWidth = 2.2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#FBF3D5';
+        ctx.font = '700 22px "Cinzel", Georgia, serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('PT', 110, 112);
+
+        // 6. Titolo principale e badge OFFICIAL MEMBER
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+        const titleGold = ctx.createLinearGradient(180, 70, 760, 115);
+        titleGold.addColorStop(0, '#FBF3D5');
+        titleGold.addColorStop(0.5, '#E5C66B');
+        titleGold.addColorStop(1, '#D4AF37');
+        ctx.fillStyle = titleGold;
+        ctx.font = '700 34px "Cinzel", Georgia, serif';
+        ctx.fillText('PUTTANTOUR 2026/2027', 180, 104);
+
+        // Badge OFFICIAL MEMBER
+        drawRoundedRectPath(ctx, 180, 118, 232, 34, 8);
+        ctx.fillStyle = 'rgba(107, 15, 26, 0.88)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.55)';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        ctx.fillStyle = '#F3E1A4';
+        ctx.font = '700 15px "Inter", sans-serif';
+        ctx.fillText('OFFICIAL MEMBER', 198, 140);
+
+        // 7. Stagione e Numero Edizione in alto a destra
+        ctx.textAlign = 'right';
+        ctx.fillStyle = 'rgba(229, 198, 107, 0.78)';
+        ctx.font = '600 14px "Inter", sans-serif';
+        ctx.fillText('STAGIONE', W - 64, 84);
+
+        ctx.fillStyle = '#FAF7F0';
+        ctx.font = '700 26px "Cinzel", Georgia, serif';
+        ctx.fillText(SEASON_LABEL, W - 64, 116);
+
+        ctx.fillStyle = '#D4AF37';
+        ctx.font = '600 18px "JetBrains Mono", monospace';
+        ctx.fillText(member.editionNo, W - 64, 146);
+
+        // 8. Chip metallico oro (sinistra centro)
+        const chipX = 68;
+        const chipY = 186;
+        const chipW = 96;
+        const chipH = 68;
+        drawRoundedRectPath(ctx, chipX, chipY, chipW, chipH, 12);
+        const chipGrad = ctx.createLinearGradient(chipX, chipY, chipX + chipW, chipY + chipH);
+        chipGrad.addColorStop(0, '#F3E1A4');
+        chipGrad.addColorStop(0.5, '#D4AF37');
+        chipGrad.addColorStop(1, '#8F6D13');
+        ctx.fillStyle = chipGrad;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(251, 243, 213, 0.75)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        // Linee circuito del chip
+        ctx.strokeStyle = 'rgba(11, 11, 14, 0.55)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(chipX + 31, chipY + 4); ctx.lineTo(chipX + 31, chipY + chipH - 4);
+        ctx.moveTo(chipX + 65, chipY + 4); ctx.lineTo(chipX + 65, chipY + chipH - 4);
+        ctx.moveTo(chipX + 4, chipY + 23); ctx.lineTo(chipX + 31, chipY + 23);
+        ctx.moveTo(chipX + 4, chipY + 45); ctx.lineTo(chipX + 31, chipY + 45);
+        ctx.moveTo(chipX + 65, chipY + 23); ctx.lineTo(chipX + chipW - 4, chipY + 23);
+        ctx.moveTo(chipX + 65, chipY + 45); ctx.lineTo(chipX + chipW - 4, chipY + 45);
+        ctx.strokeRect(chipX + 37, chipY + 22, 22, 24);
+        ctx.stroke();
+
+        // Motto a destra
+        ctx.textAlign = 'right';
+        ctx.fillStyle = 'rgba(245, 240, 230, 0.80)';
+        ctx.font = 'italic 500 28px "Cormorant Garamond", Georgia, serif';
+        ctx.fillText('“Non è un viaggio. È una tradizione.”', W - 64, 230);
+
+        // 8b. Fascia Preferenze Diplomatiche
+        const prefs = member.preferences || {};
+        const hasNote = Boolean(prefs.customNote && prefs.customNote.trim());
+        const prefBoxX = 64;
+        const prefBoxY = 278;
+        const prefBoxW = W - 128;
+        const prefBoxH = hasNote ? 124 : 96;
+
+        drawRoundedRectPath(ctx, prefBoxX, prefBoxY, prefBoxW, prefBoxH, 16);
+        ctx.fillStyle = 'rgba(6, 6, 8, 0.62)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.32)';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = 'rgba(229, 198, 107, 0.85)';
+        ctx.font = '600 12px "Inter", sans-serif';
+        ctx.fillText('PREFERENZE DIPLOMATICHE', prefBoxX + 20, prefBoxY + 24);
+
+        const prefColumns = [
+          { label: 'BUDGET', value: prefs.budget || 'Standard', highlight: true },
+          { label: 'DIMENSIONI', value: prefs.sizePref || 'All-Inclusive', highlight: false },
+          { label: 'STILE', value: prefs.stylePref || 'Elegante', highlight: false },
+          { label: 'FORMULA', value: prefs.formulaPref || 'Full Night', highlight: false },
+        ];
+        const colW = (prefBoxW - 40) / 4;
+        prefColumns.forEach((col, idx) => {
+          const cx = prefBoxX + 20 + idx * colW;
+          ctx.fillStyle = 'rgba(207, 194, 165, 0.62)';
+          ctx.font = '600 11px "Inter", sans-serif';
+          ctx.fillText(col.label, cx, prefBoxY + 50);
+
+          ctx.fillStyle = col.highlight ? '#F3E1A4' : '#FAF7F0';
+          ctx.font = '600 19px "Inter", sans-serif';
+          ctx.fillText(col.value, cx, prefBoxY + 76, colW - 14);
+        });
+
+        if (hasNote) {
+          ctx.strokeStyle = 'rgba(212, 175, 55, 0.18)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(prefBoxX + 20, prefBoxY + 90);
+          ctx.lineTo(prefBoxX + prefBoxW - 20, prefBoxY + 90);
+          ctx.stroke();
+
+          ctx.fillStyle = 'rgba(229, 198, 107, 0.85)';
+          ctx.font = '600 12px "Inter", sans-serif';
+          ctx.fillText('EXTRA:', prefBoxX + 20, prefBoxY + 112);
+
+          ctx.fillStyle = 'rgba(245, 240, 230, 0.88)';
+          ctx.font = 'italic 400 16px "Inter", sans-serif';
+          ctx.fillText(prefs.customNote.trim(), prefBoxX + 82, prefBoxY + 112, prefBoxW - 104);
+        }
+
+        // Linea separatrice dorata prima della sezione dati
+        const sepGrad = ctx.createLinearGradient(64, 0, W - 64, 0);
+        sepGrad.addColorStop(0, 'rgba(212, 175, 55, 0.45)');
+        sepGrad.addColorStop(0.7, 'rgba(212, 175, 55, 0.25)');
+        sepGrad.addColorStop(1, 'rgba(212, 175, 55, 0.08)');
+        ctx.strokeStyle = sepGrad;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(64, 422);
+        ctx.lineTo(W - 64, 422);
+        ctx.stroke();
+
+        // 9. Dati Titolare (basso sinistra)
+        ctx.textAlign = 'left';
+        ctx.fillStyle = 'rgba(229, 198, 107, 0.78)';
+        ctx.font = '600 15px "Inter", sans-serif';
+        ctx.fillText('TITOLARE', 64, 466);
+
+        const fullName = `${member.firstName} ${member.lastName}`.toUpperCase();
+        // Ridimensionamento dinamico per nomi lunghi
+        let nameFontSize = 44;
+        ctx.font = `700 ${nameFontSize}px "Cinzel", Georgia, serif`;
+        while (ctx.measureText(fullName).width > 760 && nameFontSize > 26) {
+          nameFontSize -= 2;
+          ctx.font = `700 ${nameFontSize}px "Cinzel", Georgia, serif`;
+        }
+        ctx.fillStyle = '#FAF7F0';
+        ctx.fillText(fullName, 64, 518);
+
+        // Email (eventualmente oscurata)
+        const shownEmail = getDisplayEmail(member.email, shouldMaskEmail);
+        ctx.fillStyle = 'rgba(231, 222, 201, 0.84)';
+        ctx.font = '400 22px "Inter", sans-serif';
+        ctx.fillText(shownEmail, 64, 558);
+
+        // Codice ID e Data di registrazione
+        ctx.fillStyle = 'rgba(229, 198, 107, 0.75)';
+        ctx.font = '600 14px "Inter", sans-serif';
+        ctx.fillText('CODICE IDENTIFICATIVO', 64, 628);
+        ctx.fillText('DATA REGISTRAZIONE', 420, 628);
+
+        ctx.fillStyle = '#F3E1A4';
+        ctx.font = '600 26px "JetBrains Mono", monospace';
+        ctx.fillText(member.id, 64, 666);
+
+        ctx.fillStyle = '#F5F0E6';
+        ctx.font = '500 26px "JetBrains Mono", monospace';
+        ctx.fillText(member.registeredAt, 420, 666);
+
+        // 10. QR Code deterministico (basso destra)
+        const qrBoxSize = 204;
+        const qrBoxX = W - 64 - qrBoxSize;
+        const qrBoxY = 448;
+
+        drawRoundedRectPath(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 20);
+        ctx.fillStyle = '#FAF7F0';
+        ctx.fill();
+        ctx.strokeStyle = '#D4AF37';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        const matrix = generateQrMatrix(`PUTTANTOUR-26-27|${member.id}`);
+        const qrPad = 18;
+        const cellSize = (qrBoxSize - qrPad * 2) / matrix.length;
+        ctx.fillStyle = '#0B0B0E';
+        for (let r = 0; r < matrix.length; r++) {
+          for (let c = 0; c < matrix.length; c++) {
+            if (matrix[r][c]) {
+              ctx.fillRect(
+                qrBoxX + qrPad + c * cellSize,
+                qrBoxY + qrPad + r * cellSize,
+                Math.ceil(cellSize),
+                Math.ceil(cellSize)
+              );
+            }
+          }
+        }
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(229, 198, 107, 0.8)';
+        ctx.font = '600 13px "JetBrains Mono", monospace';
+        ctx.fillText('LOCAL PASS QR', qrBoxX + qrBoxSize / 2, qrBoxY + qrBoxSize + 24);
+
+        ctx.restore();
+        ctx.restore();
+
+        return canvas;
+      }
+
+      // =====================================================================
+      // GESTIONE DELLE VISTE E AGGIORNAMENTO UI
+      // =====================================================================
+
+      function switchView(targetName) {
+        Object.entries(views).forEach(([name, section]) => {
+          if (name === targetName) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      /**
+       * Aggiorna i riferimenti alla tessera salvata nella navbar e nella homepage.
+       */
+      function refreshSavedIndicators() {
+        if (currentMember) {
+          el.navSavedCardBtn.classList.remove('hidden');
+          el.navSavedCardBtn.classList.add('inline-flex');
+          el.homeSavedBanner.classList.remove('hidden');
+          el.homeSavedName.textContent = `${currentMember.firstName} ${currentMember.lastName}`;
+          el.homeSavedId.textContent = currentMember.id;
+        } else {
+          el.navSavedCardBtn.classList.add('hidden');
+          el.navSavedCardBtn.classList.remove('inline-flex');
+          el.homeSavedBanner.classList.add('hidden');
+        }
+      }
+
+      /**
+       * Popola tutti i campi della tessera digitale HTML.
+       */
+      function populateCardUI(member) {
+        if (!member) return;
+        el.cardFullName.textContent = `${member.firstName} ${member.lastName}`;
+        el.cardEmail.textContent = getDisplayEmail(member.email, maskEmailOnCard);
+        el.cardMemberId.textContent = member.id;
+        el.cardRegDate.textContent = member.registeredAt;
+        el.cardEditionNo.textContent = member.editionNo;
+        el.infoMemberId.textContent = member.id;
+        el.cardQrContainer.innerHTML = buildQrSvg(`PUTTANTOUR-26-27|${member.id}`);
+
+        // Popola le preferenze diplomatiche con fallback per tessere precedenti
+        const prefs = member.preferences || {};
+        el.cardPrefBudget.textContent = prefs.budget || 'Non specificato';
+        el.cardPrefSize.textContent = prefs.sizePref || 'Non specificato';
+        el.cardPrefStyle.textContent = prefs.stylePref || 'Non specificato';
+        el.cardPrefFormula.textContent = prefs.formulaPref || 'Non specificato';
+
+        if (prefs.customNote && prefs.customNote.trim()) {
+          el.cardPrefNote.textContent = prefs.customNote.trim();
+          el.cardPrefNoteRow.classList.remove('hidden');
+        } else {
+          el.cardPrefNote.textContent = '';
+          el.cardPrefNoteRow.classList.add('hidden');
+        }
+      }
+
+      /**
+       * Mostra o rimuove lo stato di errore su un singolo campo del modulo.
+       */
+      function setFieldError(inputEl, errorEl, message) {
+        if (!errorEl) return;
+        if (message) {
+          errorEl.textContent = message;
+          errorEl.classList.remove('hidden');
+          if (inputEl && inputEl.type !== 'checkbox') {
+            inputEl.classList.add('border-red-500/80', 'focus:border-red-400', 'focus:ring-red-400/20');
+            inputEl.classList.remove('border-gold-400/25', 'focus:border-gold-400', 'focus:ring-gold-400/20');
+          }
+        } else {
+          errorEl.textContent = '';
+          errorEl.classList.add('hidden');
+          if (inputEl && inputEl.type !== 'checkbox') {
+            inputEl.classList.remove('border-red-500/80', 'focus:border-red-400', 'focus:ring-red-400/20');
+            inputEl.classList.add('border-gold-400/25', 'focus:border-gold-400', 'focus:ring-gold-400/20');
+          }
+        }
+      }
+
+      function validateRegistrationForm() {
+        let isValid = true;
+
+        const firstName = el.inputFirstName.value.trim();
+        const lastName = el.inputLastName.value.trim();
+        const email = el.inputEmail.value.trim();
+        const dob = el.inputDob.value;
+        const budget = el.inputBudget.value;
+        const sizePref = el.inputSizePref.value;
+        const stylePref = el.inputStylePref.value;
+        const formulaPref = el.inputFormulaPref.value;
+        const customNote = el.inputCustomNote.value.trim();
+        const termsAccepted = el.inputTerms.checked;
+
+        // Nome
+        if (firstName.length < 2) {
+          setFieldError(el.inputFirstName, el.errFirstName, 'Inserisci un nome valido (almeno 2 caratteri).');
+          isValid = false;
+        } else {
+          setFieldError(el.inputFirstName, el.errFirstName, '');
+        }
+
+        // Cognome
+        if (lastName.length < 2) {
+          setFieldError(el.inputLastName, el.errLastName, 'Inserisci un cognome valido (almeno 2 caratteri).');
+          isValid = false;
+        } else {
+          setFieldError(el.inputLastName, el.errLastName, '');
+        }
+
+        // Email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if (!emailRegex.test(email)) {
+          setFieldError(el.inputEmail, el.errEmail, 'Inserisci un indirizzo email valido.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputEmail, el.errEmail, '');
+        }
+
+        // Data di nascita & verifica 18+
+        if (!dob) {
+          setFieldError(el.inputDob, el.errDob, 'Inserisci la tua data di nascita per la verifica 18+.');
+          isValid = false;
+        } else {
+          const age = calculateExactAge(dob);
+          if (age < 0 || age > 120) {
+            setFieldError(el.inputDob, el.errDob, 'Inserisci una data di nascita valida.');
+            isValid = false;
+          } else if (age < 18) {
+            setFieldError(el.inputDob, el.errDob, 'Accesso negato: devi avere almeno 18 anni compiuti per ottenere la membership.');
+            isValid = false;
+          } else {
+            setFieldError(el.inputDob, el.errDob, '');
+          }
+        }
+
+        // Preferenze Diplomatiche
+        if (!budget) {
+          setFieldError(el.inputBudget, el.errBudget, 'Seleziona una fascia di prezzo.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputBudget, el.errBudget, '');
+        }
+
+        if (!sizePref) {
+          setFieldError(el.inputSizePref, el.errSizePref, 'Seleziona una preferenza di dimensioni/taglia.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputSizePref, el.errSizePref, '');
+        }
+
+        if (!stylePref) {
+          setFieldError(el.inputStylePref, el.errStylePref, 'Seleziona uno stile preferito.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputStylePref, el.errStylePref, '');
+        }
+
+        if (!formulaPref) {
+          setFieldError(el.inputFormulaPref, el.errFormulaPref, 'Seleziona la formula preferita.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputFormulaPref, el.errFormulaPref, '');
+        }
+
+        // Checkbox Termini & Privacy
+        if (!termsAccepted) {
+          setFieldError(el.inputTerms, el.errTerms, 'Devi accettare i termini e l’informativa privacy locale per proseguire.');
+          isValid = false;
+        } else {
+          setFieldError(el.inputTerms, el.errTerms, '');
+        }
+
+        return isValid
+          ? {
+              firstName,
+              lastName,
+              email,
+              preferences: {
+                budget,
+                sizePref,
+                stylePref,
+                formulaPref,
+                customNote,
+              },
+            }
+          : null;
+      }
+
+      // =====================================================================
+      // SEQUENZA ANIMATA DI RILASCIO MEMBERSHIP
+      // =====================================================================
+
+      function runIssuingCeremony(memberData) {
+        switchView('issuing');
+
+        // Reset stato animazione
+        el.issuingProgressBar.style.width = '8%';
+        el.stepChecks.forEach((item) => item.classList.add('opacity-40'));
+
+        const stages = [
+          { delay: 220, progress: '28%', text: 'Verifica requisiti anagrafici 18+ completata...', stepIdx: 0 },
+          { delay: 820, progress: '56%', text: `Assegnazione protocollo ${memberData.id}...`, stepIdx: 1 },
+          { delay: 1450, progress: '84%', text: 'Incisione filigrana aurea e QR identificativo...', stepIdx: 2 },
+          { delay: 2050, progress: '100%', text: 'Tessera ufficiale pronta. Benvenuto nella tradizione.', stepIdx: 3 },
+        ];
+
+        stages.forEach((stage) => {
+          setTimeout(() => {
+            el.issuingStatusText.textContent = stage.text;
+            el.issuingProgressBar.style.width = stage.progress;
+            const checkNode = el.stepChecks[stage.stepIdx];
+            if (checkNode) {
+              checkNode.classList.remove('opacity-40');
+              checkNode.classList.add('opacity-100', 'text-gold-200');
+            }
+          }, stage.delay);
+        });
+
+        setTimeout(() => {
+          currentMember = memberData;
+          saveMemberLocally(currentMember);
+          refreshSavedIndicators();
+          populateCardUI(currentMember);
+          switchView('member');
+          showToast('Tessera ufficiale emessa e salvata sul dispositivo.', 'success');
+        }, 2550);
+      }
+
+      // =====================================================================
+      // AZIONI TESSERA: DOWNLOAD PNG, SCHERMO INTERO, CONDIVISIONE, COPIA ID
+      // =====================================================================
+
+      async function handleDownloadPng() {
+        if (!currentMember) return;
+        try {
+          const canvas = await renderCardToCanvas(currentMember, maskEmailOnCard);
+          const dataUrl = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.download = `Puttantour-2026-2027-${currentMember.id}.png`;
+          link.href = dataUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showToast('Tessera PNG ad alta definizione scaricata.', 'success');
+        } catch (err) {
+          console.error('Errore download PNG:', err);
+          showToast('Impossibile generare il PNG su questo browser.', 'error');
+        }
+      }
+
+      async function handleOpenFullscreen() {
+        if (!currentMember) return;
+        try {
+          const canvas = await renderCardToCanvas(currentMember, maskEmailOnCard);
+          el.fullscreenCardImg.src = canvas.toDataURL('image/png');
+          el.modalFullscreen.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+        } catch (err) {
+          console.error('Errore anteprima schermo intero:', err);
+          showToast('Errore nell’apertura a schermo intero.', 'error');
+        }
+      }
+
+      function handleCloseFullscreen() {
+        el.modalFullscreen.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      async function handleShareCard() {
+        if (!currentMember) return;
+        const shareText = `PUTTANTOUR 2026/2027 — OFFICIAL MEMBER\n“Non è un viaggio. È una tradizione.”\nCodice Tessera: ${currentMember.id}`;
+
+        try {
+          // Tenta la condivisione nativa con allegato PNG su dispositivi compatibili
+          if (navigator.share) {
+            const canvas = await renderCardToCanvas(currentMember, true);
+            const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+
+            if (blob && navigator.canShare) {
+              const file = new File([blob], `Puttantour-2026-2027-${currentMember.id}.png`, { type: 'image/png' });
+              if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  title: 'PUTTANTOUR 2026/2027 — Official Member',
+                  text: shareText,
+                  files: [file],
+                });
+                showToast('Tessera condivisa (email oscurata per privacy).', 'success');
+                return;
+              }
+            }
+
+            await navigator.share({
+              title: 'PUTTANTOUR 2026/2027 — Official Member',
+              text: shareText,
+            });
+            showToast('Messaggio di membership condiviso.', 'success');
+            return;
+          }
+        } catch (err) {
+          // Se l'utente annulla la finestra nativa di share, non mostriamo errore
+          if (err && err.name === 'AbortError') return;
+        }
+
+        // Fallback elegante: copia negli appunti il testo celebrativo
+        const copied = copyTextToClipboard(shareText);
+        if (copied) {
+          showToast('Testo di condivisione copiato negli appunti!', 'gold');
+        } else {
+          showToast('Scarica il PNG per condividere la tua tessera.', 'gold');
+        }
+      }
+
+      function handleCopyMemberId() {
+        if (!currentMember) return;
+        const ok = copyTextToClipboard(currentMember.id);
+        if (ok) {
+          el.copyIdLabel.textContent = 'Copiato!';
+          showToast(`Codice ${currentMember.id} copiato negli appunti.`, 'success');
+          setTimeout(() => {
+            el.copyIdLabel.textContent = 'Copia ID';
+          }, 2000);
+        } else {
+          showToast('Impossibile copiare automaticamente il codice.', 'error');
+        }
+      }
+
+      // =====================================================================
+      // EFFETTO TILT 3D E RIFLESSO METALLICO SULLA TESSERA
+      // =====================================================================
+
+      function bindCardTiltEffect() {
+        const wrapper = el.cardTiltWrapper;
+        const card = el.digitalCard;
+        const sheen = el.cardSheen;
+
+        const updateTilt = (clientX, clientY) => {
+          const rect = wrapper.getBoundingClientRect();
+          const x = (clientX - rect.left) / rect.width;
+          const y = (clientY - rect.top) / rect.height;
+          const rotateY = (x - 0.5) * 10;
+          const rotateX = (0.5 - y) * 10;
+
+          card.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+          sheen.style.background = `radial-gradient(circle at ${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%, rgba(251,243,213,0.28), transparent 58%)`;
+        };
+
+        const resetTilt = () => {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+          sheen.style.background = 'radial-gradient(circle at 30% 20%, rgba(243,225,164,0.22), transparent 55%)';
+        };
+
+        wrapper.addEventListener('mousemove', (e) => updateTilt(e.clientX, e.clientY));
+        wrapper.addEventListener('mouseleave', resetTilt);
+        wrapper.addEventListener('touchmove', (e) => {
+          if (e.touches && e.touches[0]) {
+            updateTilt(e.touches[0].clientX, e.touches[0].clientY);
+          }
+        }, { passive: true });
+        wrapper.addEventListener('touchend', resetTilt);
+      }
+
+      // =====================================================================
+      // MODALI (PRIVACY & RESET)
+      // =====================================================================
+
+      function openPrivacyModal() {
+        el.modalPrivacy.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closePrivacyModal() {
+        el.modalPrivacy.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      function openResetModal() {
+        el.modalReset.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeResetModal() {
+        el.modalReset.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      // =====================================================================
+      // EVENT LISTENERS & INIZIALIZZAZIONE
+      // =====================================================================
+
+      function init() {
+        // Imposta limite massimo sensato per il selettore data (oggi)
+        const todayIso = new Date().toISOString().split('T')[0];
+        el.inputDob.setAttribute('max', todayIso);
+
+        // Carica eventuale tessera già presente in localStorage
+        currentMember = loadMemberLocally();
+        refreshSavedIndicators();
+        if (currentMember) {
+          populateCardUI(currentMember);
+        }
+
+        // Navigazione
+        el.navBrandBtn.addEventListener('click', () => switchView('home'));
+        el.btnBackHome.addEventListener('click', () => switchView('home'));
+        el.btnMemberHome.addEventListener('click', () => switchView('home'));
+
+        el.ctaStartRegistration.addEventListener('click', () => {
+          switchView('register');
+        });
+
+        const openSavedCard = () => {
+          if (currentMember) {
+            populateCardUI(currentMember);
+            switchView('member');
+          }
+        };
+        el.navSavedCardBtn.addEventListener('click', openSavedCard);
+        el.homeRecoverBtn.addEventListener('click', openSavedCard);
+
+        // Pulizia errori live mentre l'utente digita
+        el.inputFirstName.addEventListener('input', () => setFieldError(el.inputFirstName, el.errFirstName, ''));
+        el.inputLastName.addEventListener('input', () => setFieldError(el.inputLastName, el.errLastName, ''));
+        el.inputEmail.addEventListener('input', () => setFieldError(el.inputEmail, el.errEmail, ''));
+        el.inputDob.addEventListener('change', () => setFieldError(el.inputDob, el.errDob, ''));
+        el.inputBudget.addEventListener('change', () => setFieldError(el.inputBudget, el.errBudget, ''));
+        el.inputSizePref.addEventListener('change', () => setFieldError(el.inputSizePref, el.errSizePref, ''));
+        el.inputStylePref.addEventListener('change', () => setFieldError(el.inputStylePref, el.errStylePref, ''));
+        el.inputFormulaPref.addEventListener('change', () => setFieldError(el.inputFormulaPref, el.errFormulaPref, ''));
+        el.inputTerms.addEventListener('change', () => setFieldError(el.inputTerms, el.errTerms, ''));
+
+        // Invio modulo
+        el.form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const validated = validateRegistrationForm();
+          if (!validated) {
+            showToast('Controlla i campi evidenziati prima di procedere.', 'error');
+            return;
+          }
+
+          const { id, editionNo } = generateUniqueIdentifiers();
+          const newMember = {
+            firstName: validated.firstName,
+            lastName: validated.lastName,
+            email: validated.email,
+            preferences: validated.preferences,
+            id,
+            editionNo,
+            season: SEASON_LABEL,
+            registeredAt: formatItalianDate(new Date()),
+            createdAtIso: new Date().toISOString(),
+          };
+
+          // Reset form per non lasciare in memoria la data di nascita nel DOM
+          el.form.reset();
+          maskEmailOnCard = false;
+          el.toggleMaskEmail.setAttribute('aria-checked', 'false');
+          el.toggleMaskEmail.classList.remove('bg-gold-400/35');
+          el.toggleMaskKnob.classList.remove('translate-x-5', 'bg-gold-200');
+          el.toggleMaskKnob.classList.add('translate-x-0', 'bg-ivory-300');
+
+          runIssuingCeremony(newMember);
+        });
+
+        // Toggle oscuramento email
+        el.toggleMaskEmail.addEventListener('click', () => {
+          maskEmailOnCard = !maskEmailOnCard;
+          el.toggleMaskEmail.setAttribute('aria-checked', String(maskEmailOnCard));
+          if (maskEmailOnCard) {
+            el.toggleMaskEmail.classList.add('bg-gold-400/35');
+            el.toggleMaskKnob.classList.remove('translate-x-0', 'bg-ivory-300');
+            el.toggleMaskKnob.classList.add('translate-x-5', 'bg-gold-200');
+          } else {
+            el.toggleMaskEmail.classList.remove('bg-gold-400/35');
+            el.toggleMaskKnob.classList.remove('translate-x-5', 'bg-gold-200');
+            el.toggleMaskKnob.classList.add('translate-x-0', 'bg-ivory-300');
+          }
+          populateCardUI(currentMember);
+        });
+
+        // Azioni tessera
+        el.btnDownloadPng.addEventListener('click', handleDownloadPng);
+        el.btnFullscreen.addEventListener('click', handleOpenFullscreen);
+        el.btnFullscreenDownload.addEventListener('click', handleDownloadPng);
+        el.btnCloseFullscreen.addEventListener('click', handleCloseFullscreen);
+        el.btnShare.addEventListener('click', handleShareCard);
+        el.btnCopyId.addEventListener('click', handleCopyMemberId);
+
+        // Chiusura cliccando sullo sfondo del modale fullscreen
+        el.modalFullscreen.addEventListener('click', (e) => {
+          if (e.target === el.modalFullscreen) handleCloseFullscreen();
+        });
+
+        // Modale Privacy
+        el.navPrivacyBtn.addEventListener('click', openPrivacyModal);
+        el.formOpenPrivacy.addEventListener('click', openPrivacyModal);
+        el.btnClosePrivacy.addEventListener('click', closePrivacyModal);
+        el.btnAcceptClosePrivacy.addEventListener('click', closePrivacyModal);
+        el.modalPrivacy.addEventListener('click', (e) => {
+          if (e.target === el.modalPrivacy) closePrivacyModal();
+        });
+
+        // Modale Reset tessera locale
+        el.btnOpenResetModal.addEventListener('click', openResetModal);
+        el.btnCancelReset.addEventListener('click', closeResetModal);
+        el.modalReset.addEventListener('click', (e) => {
+          if (e.target === el.modalReset) closeResetModal();
+        });
+
+        el.btnConfirmReset.addEventListener('click', () => {
+          clearMemberLocally();
+          currentMember = null;
+          refreshSavedIndicators();
+          closeResetModal();
+          switchView('register');
+          showToast('Tessera locale rimossa. Puoi compilare una nuova adesione.', 'gold');
+        });
+
+        // Tasto ESC per chiudere eventuali modali aperti
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            handleCloseFullscreen();
+            closePrivacyModal();
+            closeResetModal();
+          }
+        });
+
+        // Effetto 3D metallico sulla tessera
+        bindCardTiltEffect();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
